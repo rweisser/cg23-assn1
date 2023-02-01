@@ -26,7 +26,7 @@ int main()
 
 	// open ppm output file in trace directory
 	std::string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
-	std::fstream ppmfile(ppmname, std::ios::app | std::ios::binary);
+	std::fstream ppmfile(ppmname, std::ios::out | std::ios::binary);
 	if(ppmfile.fail()) {
 		std::cerr << "Error opening " << ppmname << '\n';
 		return 1;
