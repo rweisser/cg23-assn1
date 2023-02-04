@@ -1,0 +1,119 @@
+Notes on Assignment 0
+
+Using Windows 10
+
+I forgot to change std::ios::app to std::ios::out before building the
+first time.  I made the change, rebuilt, and recommitted.  So there
+will be an extra commit.
+
+==============================================================================
+tl;dr Everything worked fine except for the issue mentioned above.
+==============================================================================
+
+NOTE:  This file definitely qualifies as TMI.
+
+Issues
+
+Need ssh key?  Iannis said yes.
+
+Do I need to define origin and master/main?  Sarah said when you clone
+a repository from github, they are already defined.
+
+==============================================================================
+1/30/2023 11:04:00 PM
+==============================================================================
+
+Check to see if my github account still exists.  It does:
+    username:  rweisser
+I noticed that my old public key was gone.
+
+I filled out my github user id on the class github ID google form.
+
+==============================================================================
+1/31/2023 1:56:47 PM
+==============================================================================
+
+I joined the umbc cmsc discord server by clicking on the explore
+public servers button at the lower left of the discord window.
+Hovever, I couldn't find the #435 channel.
+
+Later, before class Iannis showed me how to get to the 435 channel.
+
+I got an email from olano inviting me to join the @UMBCGAIM
+organization on github.  I joined.  It took me to github.com/UMBCGAIM.
+The repository for the class appears to be cg23.
+
+I installed cmake (C:\Program Files\CMake).
+
+==============================================================================
+2/1/2023 9:28:31 AM
+==============================================================================
+
+Went to https://github.com/UMBCGAIM/cg23 to fork the class repository.
+After forking it, it appeared as my repository
+https://github.com/rweisser/cg23.
+
+I successfully cloned https://github.com/rweisser/cg23 to
+homework/assignment0/cg23.
+
+==============================================================================
+2/4/2023 12:46:08 PM
+==============================================================================
+
+I added my name and email to github.
+I created an ssh ed25519 key.  I added it to the git bash ssh agent
+and copied the public key to github.
+
+Do I need to define origin and master?  Still not sure.
+
+Started the Build and Run section of the assignment.  This is the
+output from my cmake command.
+
+  $ cmake -S trace -B trace/build
+  -- Building for: Visual Studio 16 2019
+  -- Selecting Windows SDK version 10.0.19041.0 to target Windows
+  10.0.19044.
+  -- The C compiler identification is MSVC 19.29.30147.0
+  -- The CXX compiler identification is MSVC 19.29.30147.0
+  -- Detecting C compiler ABI info
+  -- Detecting C compiler ABI info - done
+  -- Check for working C compiler: C:/Program Files (x86)/Microsoft
+  Visual
+  Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe
+  - skipped
+  -- Detecting C compile features
+  -- Detecting C compile features - done
+  -- Detecting CXX compiler ABI info
+  -- Detecting CXX compiler ABI info - done
+  -- Check for working CXX compiler: C:/Program Files (x86)/Microsoft
+  Visual
+  Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe
+  - skipped
+  -- Detecting CXX compile features
+  -- Detecting CXX compile features - done
+  -- Configuring done
+  -- Generating done
+  -- Build files have been written to:
+  C:/Users/rweis/self/umbc/classes/compsci_435_comp_graphics/homework/assignment0/
+      g23/trace/build
+
+I verified that the trace.sln file was in build.
+
+After I double clicked trace.sln in Windows Explorer, VS2019 opened
+the solution.  I made Trace the startup project and pressed the arrow
+(Local Windows Debugger) button, which built the executable and ran
+it, leaving the trace.ppm file in the trace dir.  I first tried
+looking at it in ImageMagick, but ImageMagick seems not to be able to
+read .ppm files.  I successfully looked at it in gimp.
+
+The commit section:
+
+I added the new file, committed, pulled and pushed as required.
+
+Checking in discord 435, I noticed that I forgot to change
+std::ios::app to std::ios::out.  I made the change, rebuilt, and
+committed again.
+
+I copied this file to the project as assn0.txt and committed again.
+
+I have not tagged the release yet.
