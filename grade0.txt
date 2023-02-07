@@ -1,0 +1,25 @@
+CMSC 435/634 / Computer Graphics
+Assignment 0 Grading Rubric
+
+10/10 - Filled out google form
+10/10 - Accepted team invitation
+10/10 - Forked github repository
+10/10 - Created local clone
+10/10 - Appear to have run cmake & trace
+10/10 - Committed trace.ppm
+10/10 - Committed assn0.txt
+10/10 - Did not commit build files
+10/10 - Descriptive commit message(s)
+10/10 - Github assn0 tag
+----
+
+100/100 - Total
+
+Generally once you have an ssh key it is just easier, as you can use ssh-agent
+to add that key and you don't have to keep typing your passphrase for that
+session. It doesn't really matter though, use whatever you want.
+
+Regarding defining origin and mater/main, when you clone from somewhere, git
+assumes that "somewhere" is your origin and you want it's default branch (main
+in this case). If you were to make a new repo with "git init" you would have to
+manually define the remotes and branches you wanna use.
