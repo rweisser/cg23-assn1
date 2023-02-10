@@ -55,4 +55,4 @@ ostream& operator<<(ostream& os, const Vec2& v); // output as string
 // ===========================================================================
 // Include the implementation of the online and template functions.
 // ===========================================================================
-#include "Vec2Inline.h"
+#include "Vec2Inline.inl"

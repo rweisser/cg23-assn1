@@ -10,6 +10,12 @@
 #include <chrono>
 #include <cstdint>
 
+#define MAIN
+#include "shared_data.hpp"
+
+#include "Vec3.hpp"
+#include "parse.hpp"
+
 int main()
 {
 	// platform-independent timing

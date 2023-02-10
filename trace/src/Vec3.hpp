@@ -56,4 +56,4 @@ string ToString(const Vec3& v);                  // stringify for test
 // ===========================================================================
 // Include the implementation of the online and template functions.
 // ===========================================================================
-#include "Vec3Inline.h"
+#include "Vec3Inline.inl"
