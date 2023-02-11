@@ -1,23 +1,42 @@
 // basic starter code for ray tracing assignment
 
+// For shared_data.hpp to work correctly, MAIN must be defined in this file,
+// but must not be defined in any other file.
+#define MAIN
+
 #include "Color.hpp"
 #include "Config.h"
 
-#include <vector>
+#include <chrono>
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <chrono>
-#include <cstdint>
+#include <vector>
 
-#define MAIN
 #include "shared_data.hpp"
 
 #include "Vec3.hpp"
 #include "parse.hpp"
 
-int main()
+const char* usage = "Trace filename";
+
+using namespace std;
+int main(int argc, char **argv)
 {
+	if (argc != 2) {
+		cout << "usage: " << usage << endl;
+		exit(1);
+	}
+	char* file_name_arg = argv[1];
+
+	parse_file(file_name);
+	cout << "background: " << background << endl;
+	cout << "eyep: " << eyep << endl;
+	cout << "lookp: " << lookp << endl;
+	cout << "up: " << up << endl;
+	return 0;
+
 	// platform-independent timing
     auto startTime = std::chrono::high_resolution_clock::now();
 

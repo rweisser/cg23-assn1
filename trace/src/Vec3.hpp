@@ -4,8 +4,8 @@
 // Vec3 - Three dimensional vectors.  Header.
 // 
 // Everything is inline for speed.  The coordinates x, y any z are public
-// for convenience.  The implementation file is Vec3Inline.h.  There is
-// no Vec3.cpp file.
+// for convenience.  The implementation file is Vec3Inline.h.  Vec3.cpp
+// just defines Vec3::VEC_ZERO.
 // ===========================================================================
 
 #include <iostream>
@@ -28,6 +28,9 @@ struct Vec3
 
 	Vec3& operator=(const Vec3& v);
 
+	template<class T1, class T2, class T3>
+	Vec3& operator=(const tuple<T1, T2, T3>& t); // assignment from tuple
+
 	double norm() const;                // Euclidean norm
 	double angle(const Vec3& v) const;  // angle in radians with other vector
 	double mag() const;                 // magnitude, same as norm
@@ -41,8 +44,6 @@ struct Vec3
 	Vec3 operator-() const;
 	Vec3& operator-=(const Vec3& v);
 }; // Vec3
-
-const Vec3 Vec3::Vec3_ZERO(0, 0, 0);
 
 Vec3 operator+(Vec3 v1, const Vec3& v2);         // vector addition  
 Vec3 operator-(Vec3 v1, const Vec3& v2);         // vector substraction

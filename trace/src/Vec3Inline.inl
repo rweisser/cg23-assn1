@@ -3,8 +3,8 @@
 // ===========================================================================
 // Vec3 - Three dimensional vectors.  Implementation of inline functions.
 // 
-// Everything is inline for speed.  The coordinates x, y any z are public
-// for convenience.
+// All member functions are inline for speed.  The coordinates x, y any z
+// are public for convenience.
 // ===========================================================================
 
 #include <cmath>
@@ -34,6 +34,15 @@ Vec3& Vec3::operator=(const Vec3& v)
 	x = v.x;
 	y = v.y;
 	z = v.z;
+	return *this;
+}
+
+template<class T1, class T2, class T3>
+Vec3& Vec3::operator=(const tuple<T1, T2, T3>& t)
+{
+	x = get<0>(t);
+	y = get<1>(t);
+	z = get<2>(t);
 	return *this;
 }
 
