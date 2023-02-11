@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "Vec2.hpp"
 #include "Vec3.hpp"
 
 #if defined MAIN
@@ -17,29 +18,56 @@
     #define EXTERN extern
 #endif
 
+struct sphere;
+struct surface;
+
+EXTERN Vec3 background;
+EXTERN Vec3 eyep;
+EXTERN Vec3 lookp;
+EXTERN Vec3 up;
+EXTERN Vec2 fov;
+EXTERN Vec2 screen;
+EXTERN unordered_map<string, surface> surfaces;
+EXTERN vector<sphere> spheres;
+
 struct surface
 {
     string name;
     Vec3 color;
 };
 
+inline
+ostream& operator<<(ostream& os, const surface& s)
+{
+    os << "surface("
+       << s.name 
+       << ","
+       << s.color
+       << ")";
+    return os;
+}
+
 struct sphere
 {
-    string surface;    // the surface supplies the color
+    string surface_name; // the surface supplies the color
     double radius;
     Vec3 center;
+
+    Vec3 color()
+    {
+        return surfaces[surface_name].color;
+    }
 };
 
-EXTERN Vec3 background;
-EXTERN Vec3 eyep;
-EXTERN Vec3 lookp;
-EXTERN Vec3 up;
-EXTERN unordered_map<string, surface> surfaces;
-
-// Can't initialize an extern
-#if defined MAIN
-    vector<sphere> spheres(1000);
-#else
-    extern vector<sphere> spheres;
-#endif
+inline
+ostream& operator<<(ostream& os, const sphere& s)
+{
+    os << "sphere("
+       << s.surface_name
+       << ","
+       << s.radius << 
+       ","
+       << s.center << ")";
+    return os;
+}
 

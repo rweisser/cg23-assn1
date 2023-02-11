@@ -13,15 +13,18 @@
 
 using namespace std;
 
-void read_file();
-void parse_vector(Vec3 &v);
-void parse_surface();
+void   parse_vec2(Vec2 &v);
+void   parse_vec3(Vec3 &v);
+void   parse_sphere();
+void   parse_surface();
+void   read_file();
 
 static ifstream ray_file;
+static string push_back; // empty at start
 
-void parse_file(const char* const file_name)
+void parse_file(const string& file_name)
 {
-    ray_file.open(file_name, ios::in);
+    ray_file.open(file_name);
     if (!ray_file) {
         cerr << file_name << ": ";
         cerr << strerror(errno) << endl;
@@ -34,24 +37,29 @@ void parse_file(const char* const file_name)
 void read_file()
 {
     // read a keyword
-    string key_word;
-    while (!ray_file.eof()) {
-        ray_file >> key_word;
-        if (key_word == "background") {
-            parse_vector(background);
-        }
-        else if (key_word == "eyep") {
-            parse_vector(eyep);
-        }
-        else if (key_word == "lookp") {
-            parse_vector(lookp);
-        }
-        else if (key_word == "up") {
-            parse_vector(up);
-        }
-        else if (key_word == "surface") {
+    // ignore tokens we don't care about
+    string token;
+    while (1) {
+        ray_file >> token;
+        if (ray_file.eof())
+            break;
+        // XXX cout << "In read_file, token = " << token << endl;
+        if (token == "background")
+            parse_vec3(background);
+        else if (token == "eyep")
+            parse_vec3(eyep);
+        else if (token == "lookp")
+            parse_vec3(lookp);
+        else if (token == "up")
+            parse_vec3(up);
+        else if (token == "fov")
+            parse_vec2(fov);
+        else if (token == "screen")
+            parse_vec2(screen);
+        else if (token == "surface")
             parse_surface();
-        }
+        else if (token == "sphere")
+            parse_sphere();
     }
 }
 
@@ -59,22 +67,50 @@ void read_file()
 // Parse functions.
 // =================F==========================================================
 
+// parse background fov and screen
+void parse_vec2(Vec2& v) {
+    double x, y;
+    ray_file >> x >> y;
+    v = { x, y };
+}
+
 // parse background color, eyep, lookp, and up
-void parse_vector(Vec3 &v) {
+void parse_vec3(Vec3 &v) {
     double x, y, z;
     ray_file >> x >> y >> z;
-    v = tuple<double, double, double>(x, y, z);
+    v = { x, y, z };
 }
 
 void parse_surface()
 {
     string name;
-    string key_word;
+    string token;
     double r, x, y, z;
 
     ray_file >> name;
-    ray_file >> key_word;
-    if (key_word == "diffuse") {
-        ray_file >> r >> x >> y >> z;
+    // XXX cout << "in parse_surface, name = " << name << endl;
+    while (1) {
+        ray_file >> token;
+        // XXX cout << "in parse_surface while loop, token = " << token << endl;
+        if (token == "diffuse") {
+            surface s;
+            ray_file >> x >> y >> z;
+            s.name = name;
+            s.color = { x, y, z };
+            surfaces.insert({ s.name, s });
+            return;
+        }
     }
+}
+
+void parse_sphere()
+{
+    sphere s;
+    string surface_name;
+    double radius, x, y, z;
+    ray_file >> surface_name >> radius >> x >> y >> z;
+    s.surface_name = surface_name;
+    s.radius = radius;
+    s.center = { x, y, z };
+    spheres.push_back(s);
 }

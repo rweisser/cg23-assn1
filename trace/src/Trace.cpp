@@ -7,6 +7,7 @@
 #include "Color.hpp"
 #include "Config.h"
 
+#include <algorithm>
 #include <chrono>
 #include <cstdint>
 #include <fstream>
@@ -29,15 +30,26 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	char* file_name_arg = argv[1];
-
+	string file_name(PROJECT_DATA_DIR);
+	file_name += file_name_arg;
 	parse_file(file_name);
+	
 	cout << "background: " << background << endl;
 	cout << "eyep: " << eyep << endl;
 	cout << "lookp: " << lookp << endl;
 	cout << "up: " << up << endl;
+	cout << "fov: " << fov << endl;
+	cout << "screen" << screen << endl;
+	cout << endl;
+	for (auto iter = surfaces.cbegin(); iter != surfaces.cend(); iter++) {
+		cout << iter->first << " -> " << iter->second << endl;
+	}
+	cout << endl;
+	for_each(spheres.cbegin(), spheres.cend(), [](const sphere& s) { cout << s << endl; });
+
 	return 0;
 
-	// platform-independent timing
+	// platform-independent timing[
     auto startTime = std::chrono::high_resolution_clock::now();
 
 	// hard-coded data for a 4x4 image

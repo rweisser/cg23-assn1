@@ -54,7 +54,7 @@ double Vec2::r() const
 inline
 double Vec2::angle(const Vec2& v) const
 {
-	if (*this == VEC2_ZERO || v == VEC2_ZERO)
+	if (*this == Vec2_ZERO || v == Vec2_ZERO)
 		throw invalid_argument("zero vector");
 	return acos((dot(v)) / (norm() * v.norm()));
 }
@@ -86,7 +86,7 @@ double Vec2::dot(const Vec2& v) const
 inline
 Vec2 Vec2::normalize() const
 {
-	if (*this == Vec2::VEC2_ZERO)
+	if (*this == Vec2::Vec2_ZERO)
 		throw invalid_argument("cannot normalize zero vector");
 	return *this / mag();
 }

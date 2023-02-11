@@ -17,7 +17,7 @@ struct Vec2
 {
 	double x, y;
 
-	static const Vec2 VEC2_ZERO;        // zero vector
+	static const Vec2 Vec2_ZERO;        // zero vector
 
 	Vec2();
 	Vec2(double x, double y);
@@ -42,8 +42,6 @@ struct Vec2
 	Vec2 operator-() const;
 	Vec2& operator-=(const Vec2& v);
 }; // Vec2
-
-const Vec2 Vec2::VEC2_ZERO(0, 0);
 
 Vec2 operator+(Vec2 v1, const Vec2& v2);         // vector addition  
 Vec2 operator-(Vec2 v1, const Vec2& v2);         // vector substraction
