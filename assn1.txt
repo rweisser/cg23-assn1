@@ -1,0 +1,13 @@
+Assignment 1
+
+NOTE:  As I mentioned to Professor Olano during office hours, I wrote
+the Vec2 and Vec3 classes before class started.  After reading some of
+the Shirley Fundamentals of Computer Graphics before class started, I
+created them in a seperate Visual Studio 2019 solution, which I would
+be happy to show if necessary.  The first commit on the related files
+was therefore of almost complete versions, since they were created
+before I started using git.  After that, I did have to make some minor
+changes, which do appear in commits.  I hope this is okay.
+
+I looked up a lot of c++ documentation on cppreference.com.  My c++
+knowledge did not include much after C++98.
