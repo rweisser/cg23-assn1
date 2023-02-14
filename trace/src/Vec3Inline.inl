@@ -90,6 +90,9 @@ Vec3 Vec3::cross(const Vec3& v) const
 inline
 Vec3 Vec3::normalize() const
 {
+	if (*this == Vec3::Vec3_ZERO)
+		return Vec3::Vec3_ZERO;
+	return *this / mag();
 }
 
 inline

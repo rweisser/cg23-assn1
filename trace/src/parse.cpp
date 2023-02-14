@@ -1,8 +1,12 @@
 #pragma once
 
 // ===========================================================================
+// parse.cpp
+// 
 // Functions to parse the input file into global variables.
-// =================F==========================================================
+// ===========================================================================
+
+using namespace std;
 
 #include <cerrno>
 #include <fstream>
@@ -10,8 +14,7 @@
 #include <string>
 
 #include "shared_data.hpp"
-
-using namespace std;
+#include "Sphere.hpp"
 
 void   parse_vec2(Vec2 &v);
 void   parse_vec3(Vec3 &v);
@@ -93,11 +96,9 @@ void parse_surface()
         ray_file >> token;
         // XXX cout << "in parse_surface while loop, token = " << token << endl;
         if (token == "diffuse") {
-            surface s;
             ray_file >> x >> y >> z;
-            s.name = name;
-            s.color = { x, y, z };
-            surfaces.insert({ s.name, s });
+            Surface s(name, { x, y, z });
+            surface_map.insert({ s.name, s });
             return;
         }
     }
@@ -105,12 +106,9 @@ void parse_surface()
 
 void parse_sphere()
 {
-    sphere s;
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    s.surface_name = surface_name;
-    s.radius = radius;
-    s.center = { x, y, z };
-    spheres.push_back(s);
+    Sphere s(surface_name, radius, Vec3(x, y, z));
+    sphere_vec.push_back(s);
 }

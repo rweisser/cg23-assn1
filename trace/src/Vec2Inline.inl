@@ -87,7 +87,7 @@ inline
 Vec2 Vec2::normalize() const
 {
 	if (*this == Vec2::Vec2_ZERO)
-		throw invalid_argument("cannot normalize zero vector");
+		return Vec2::Vec2_ZERO;
 	return *this / mag();
 }
 

@@ -16,7 +16,8 @@
 #include <vector>
 
 #include "shared_data.hpp"
-
+#include "Sphere.hpp"
+#include "Surface.hpp"
 #include "Vec3.hpp"
 #include "parse.hpp"
 
@@ -41,11 +42,11 @@ int main(int argc, char **argv)
 	cout << "fov: " << fov << endl;
 	cout << "screen" << screen << endl;
 	cout << endl;
-	for (auto iter = surfaces.cbegin(); iter != surfaces.cend(); iter++) {
+	for (auto iter = surface_map.cbegin(); iter != surface_map.cend(); iter++) {
 		cout << iter->first << " -> " << iter->second << endl;
 	}
 	cout << endl;
-	for_each(spheres.cbegin(), spheres.cend(), [](const sphere& s) { cout << s << endl; });
+	for_each(sphere_vec.cbegin(), sphere_vec.cend(), [](const Sphere& s) { cout << s << endl; });
 
 	return 0;
 
