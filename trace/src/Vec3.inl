@@ -1,11 +1,16 @@
 #pragma once
 
 // ===========================================================================
-// Vec3 - Three dimensional vectors.  Implementation of inline functions.
+// Vec3 - Three dimensional vectors.  Implementation.
 // 
-// All member functions are inline for speed.  The coordinates x, y any z
-// are public for convenience.
+// Everything is inline for speed.  The coordinates x, y any z are public
+// for convenience.  The implementation file is Vec3Inline.h.  Vec3.cpp
+// just defines Vec3::VEC_ZERO.
+// 
+// Vec3 holds a vector or a color.
 // ===========================================================================
+
+using namespace std;
 
 #include <cmath>
 #include <iostream>
@@ -13,7 +18,6 @@
 #include <string>
 #include <sstream>
 #include <tuple>
-using namespace std;
 
 inline
 Vec3::Vec3() : x(0), y(0), z(0) {}

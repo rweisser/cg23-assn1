@@ -8,10 +8,11 @@
 // no Vec2.cpp file.
 // ===========================================================================
 
+using namespace std;
+
 #include <string>
 #include <iostream>
 #include <utility>
-using namespace std;
 
 struct Vec2
 {
@@ -53,4 +54,4 @@ ostream& operator<<(ostream& os, const Vec2& v); // output as string
 // ===========================================================================
 // Include the implementation of the online and template functions.
 // ===========================================================================
-#include "Vec2Inline.inl"
+#include "Vec2.inl"

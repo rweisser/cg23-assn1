@@ -6,12 +6,15 @@
 // Everything is inline for speed.  The coordinates x, y any z are public
 // for convenience.  The implementation file is Vec3Inline.h.  Vec3.cpp
 // just defines Vec3::VEC_ZERO.
+// 
+// Vec3 holds a vector or a color.
 // ===========================================================================
+
+using namespace std;
 
 #include <iostream>
 #include <string>
 #include <tuple>
-using namespace std;
 
 struct Vec3
 {
@@ -57,4 +60,4 @@ string ToString(const Vec3& v);                  // stringify for test
 // ===========================================================================
 // Include the implementation of the online and template functions.
 // ===========================================================================
-#include "Vec3Inline.inl"
+#include "Vec3.inl"

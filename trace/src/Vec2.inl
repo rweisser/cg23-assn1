@@ -7,13 +7,14 @@
 // for convenience.
 // ===========================================================================
 
+using namespace std;
+
 #include <cmath>
 #include <iostream>
 #include <utility>
 #include <stdexcept>
 #include <string>
 #include <sstream>
-using namespace std;
 
 inline
 Vec2::Vec2() : x(0), y(0) {}

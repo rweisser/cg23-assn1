@@ -15,6 +15,7 @@ struct Surface
     string name;
     Vec3 color;
 
+    Surface();
     Surface(string name, Vec3 color);
 };
 

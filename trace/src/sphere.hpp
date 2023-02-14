@@ -6,10 +6,7 @@
 
 using namespace::std;
 
-#include "Surface.hpp"
 #include "Vec3.hpp"
-
-extern unordered_map<string, Surface> surface_map;
 
 struct Sphere
 {
