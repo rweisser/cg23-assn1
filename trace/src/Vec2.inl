@@ -100,6 +100,13 @@ string Vec2::str() const
 	return oss.str();
 }
 
+
+inline
+Vec2 Vec2::operator*(double k) const
+{
+	return Vec2(x * k, y * k);
+}
+
 inline
 bool Vec2::operator==(const Vec2& v) const
 {
@@ -145,15 +152,9 @@ Vec2 operator-(Vec2 v1, const Vec2& v2)
 }
 
 inline
-Vec2 operator*(double k, const Vec2& v)
+Vec2 operator*(const double k, const Vec2& v)
 {
-	return Vec2(v.x * k, v.y * k);
-}
-
-inline
-Vec2 operator*(const Vec2& v, double k)
-{
-	return k * v;
+	return v * k;
 }
 
 inline

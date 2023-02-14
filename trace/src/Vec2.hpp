@@ -38,17 +38,17 @@ struct Vec2
 	double dot(const Vec2& v) const;    // dot product
 	Vec2 normalize() const;             // change to length 1
 
+	Vec2 operator*(double k) const;     // scalar multiplication
 	bool operator==(const Vec2& v) const;
 	Vec2& operator+=(const Vec2& v);
 	Vec2 operator-() const;
 	Vec2& operator-=(const Vec2& v);
 }; // Vec2
 
-Vec2 operator+(Vec2 v1, const Vec2& v2);         // vector addition  
-Vec2 operator-(Vec2 v1, const Vec2& v2);         // vector substraction
-Vec2 operator*(double k, const Vec2& v);         // scalar multiplication
-Vec2 operator*(const Vec2& v, double k);         // scalar multiplication
-Vec2 operator/(const Vec2& v, double k);         // scalar division
+Vec2 operator+(Vec2 v1, const Vec2& v2);   // vector addition  
+Vec2 operator-(Vec2 v1, const Vec2& v2);   // vector substraction
+Vec2 operator*(double k, const Vec2& v);   // scalar multiplication
+Vec2 operator/(const Vec2& v, double k);   // scalar division
 ostream& operator<<(ostream& os, const Vec2& v); // output as string
 
 // ===========================================================================

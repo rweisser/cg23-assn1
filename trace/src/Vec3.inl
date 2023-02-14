@@ -108,6 +108,12 @@ string Vec3::str() const
 }
 
 inline
+Vec3 Vec3::operator*(double k) const
+{
+	return Vec3(x * k, y * k, z * k);
+}
+
+inline
 bool Vec3::operator==(const Vec3& v) const
 {
 	return x == v.x && y == v.y && z == v.z;
@@ -157,13 +163,7 @@ Vec3 operator-(Vec3 v1, const Vec3& v2)
 inline
 Vec3 operator*(double k, const Vec3& v)
 {
-	return Vec3(v.x * k, v.y * k, v.z * k);
-}
-
-inline
-Vec3 operator*(const Vec3& v, double k)
-{
-	return k * v;
+	return v * k;
 }
 
 inline

@@ -42,6 +42,7 @@ struct Vec3
 	Vec3 normalize() const;             // change length to 1
 	string str() const;                 // stringify
 
+	Vec3 operator*(double k) const;     // scalar multiplication
 	bool operator==(const Vec3& v) const;
 	Vec3& operator+=(const Vec3& v);
 	Vec3 operator-() const;
@@ -51,7 +52,6 @@ struct Vec3
 Vec3 operator+(Vec3 v1, const Vec3& v2);         // vector addition  
 Vec3 operator-(Vec3 v1, const Vec3& v2);         // vector substraction
 Vec3 operator*(double k, const Vec3& v);         // scalar multiplication
-Vec3 operator*(const Vec3& v, double k);         // scalar multiplication
 Vec3 operator/(const Vec3& v, double k);         // scalar division
 ostream& operator<<(ostream& os, const Vec3& v); // output as string
 string ToString(const Vec3& v);                  // stringify for test
