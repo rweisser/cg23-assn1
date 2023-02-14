@@ -19,4 +19,4 @@ struct Surface
     Surface(string name, Vec3 color);
 };
 
-#include "surface.inl"
+#include "Surface.inl"

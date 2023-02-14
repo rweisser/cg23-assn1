@@ -16,6 +16,8 @@ struct Sphere
 
     Sphere(string surface_name, double radius, Vec3 center);
     Vec3 color();
+
+    bool intersect(const Vec3& e, const Vec3& d, double &t1, double &t2);
 };
 
-#include "sphere.inl"
+#include "Sphere.inl"
