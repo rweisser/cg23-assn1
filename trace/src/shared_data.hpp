@@ -30,4 +30,4 @@ EXTERN Vec2 fov;
 EXTERN Vec2 screen_size;
 EXTERN unordered_map<string, Surface>* surface_map;
 EXTERN vector<Sphere> sphere_vec;
-EXTERN Vec3 screen; // u = x, v = y, w = z
+EXTERN Vec3 look_screen; // u = x, v = y, w = z

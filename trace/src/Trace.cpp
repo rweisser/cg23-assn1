@@ -104,6 +104,9 @@ void test_intersect()
 
 int main(int argc, char **argv)
 {
+	// platform-independent timing
+	auto startTime = std::chrono::high_resolution_clock::now();
+
 	if (argc != 2) {
 		cout << "usage: " << usage << endl;
 		exit(1);
@@ -114,33 +117,33 @@ int main(int argc, char **argv)
 	surface_map = new unordered_map<string, Surface>;
 	parse_file(file_name);
 	delete surface_map;
+	cout << "finished parsing input" << endl;
 
 	// test_parse(); return 0;
 	// test_intersect(); return 0;
 
-	// platform-independent timing[
-    auto startTime = std::chrono::high_resolution_clock::now();
+	look
 
 	// hard-coded data for a 4x4 image
-	int width = 4, height = 4;
-	std::vector<uColor> image {
-		{255, 255,   0}, {255, 255,   0}, {255, 255,   0}, {255,   0,   0},
-		{  0,   0, 255}, {  0,   0,   0}, { 85,  85,  85}, {255,   0,   0},
-		{  0,   0, 255}, {170, 170, 170}, {255, 255, 255}, {255,   0,   0},
-		{  0,   0, 255}, {  0, 255,   0}, {  0, 255,   0}, {  0, 255,   0}
-	};
+	//int width = 4, height = 4;
+	//std::vector<uColor> image {
+	//	{255, 255,   0}, {255, 255,   0}, {255, 255,   0}, {255,   0,   0},
+	//	{  0,   0, 255}, {  0,   0,   0}, { 85,  85,  85}, {255,   0,   0},
+	//	{  0,   0, 255}, {170, 170, 170}, {255, 255, 255}, {255,   0,   0},
+	//	{  0,   0, 255}, {  0, 255,   0}, {  0, 255,   0}, {  0, 255,   0}
+	//};
 
-	// open ppm output file in trace directory
-	std::string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
-	std::fstream ppmfile(ppmname, std::ios::out | std::ios::binary);
-	if(ppmfile.fail()) {
-		std::cerr << "Error opening " << ppmname << '\n';
-		return 1;
-	}
+	//// open ppm output file in trace directory
+	//std::string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
+	//std::fstream ppmfile(ppmname, std::ios::out | std::ios::binary);
+	//if(ppmfile.fail()) {
+	//	std::cerr << "Error opening " << ppmname << '\n';
+	//	return 1;
+	//}
 
-	// output ppm format: text header then raw binary data
-	ppmfile << "P6\n" << width << " " << height << "\n255\n";
-	ppmfile.write((char*)(&image[0]), width * height * sizeof(uColor));
+	//// output ppm format: text header then raw binary data
+	//ppmfile << "P6\n" << width << " " << height << "\n255\n";
+	//ppmfile.write((char*)(&image[0]), width * height * sizeof(uColor));
 
 	// report final timing
     auto endTime = std::chrono::high_resolution_clock::now();
