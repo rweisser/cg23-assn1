@@ -76,7 +76,7 @@ void test_intersect()
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 1, Vec3(3, 3, 3))); // s
+		Sphere("sph001", sqrt(3), Vec3(3, 3, 3))); // s
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
