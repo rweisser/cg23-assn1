@@ -58,9 +58,9 @@ void read_file()
         else if (token == "fov")
             parse_vec2(fov);
         else if (token == "screen")
-            parse_vec2(screen);
+            parse_vec2(screen_size);
         else if (token == "surface")
-            parse_surface();
+             parse_surface();
         else if (token == "sphere")
             parse_sphere();
     }
@@ -74,6 +74,7 @@ void read_file()
 void parse_vec2(Vec2& v) {
     double x, y;
     ray_file >> x >> y;
+    cout << x << y << endl;
     v = { x, y };
 }
 
@@ -98,7 +99,7 @@ void parse_surface()
         if (token == "diffuse") {
             ray_file >> x >> y >> z;
             Surface s(name, { x, y, z });
-            surface_map.insert({ s.name, s });
+            surface_map->insert({ s.name, s });
             return;
         }
     }
@@ -109,6 +110,7 @@ void parse_sphere()
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    Sphere s(surface_name, radius, Vec3(x, y, z));
+    Vec3 color = (*surface_map)[surface_name].color;
+    Sphere s(surface_name, radius, Vec3(x, y, z), color);
     sphere_vec.push_back(s);
 }

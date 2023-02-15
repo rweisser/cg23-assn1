@@ -32,11 +32,11 @@ void test_parse()
 	cout << "lookp: " << lookp << endl;
 	cout << "up: " << up << endl;
 	cout << "fov: " << fov << endl;
-	cout << "screen" << screen << endl;
-	cout << endl;
-	for (auto iter = surface_map.cbegin(); iter != surface_map.cend(); iter++) {
-		cout << iter->first << " -> " << iter->second << endl;
-	}
+	cout << "screen_size: " << screen_size << endl;
+	// cout << endl;
+	// for (auto iter = surface_map->cbegin(); iter != surface_map->cend(); iter++) {
+	//	 cout << iter->first << " -> " << iter->second << endl;
+	// }
 	cout << endl;
 	for_each(sphere_vec.cbegin(), sphere_vec.cend(), [](const Sphere& s) { cout << s << endl; });
 }
@@ -51,7 +51,7 @@ void test_intersect2(Vec3& e, Vec3& d, Sphere& s)
 	cout << "result = " << res
 		<< ", t1 = " << t1
 		<< ", t2 = " << t2 << endl;
-	cout << "color = " << surface_map[s.surface_name].color << endl;
+	cout << "color = " << s.color << endl;
 }
 
 void test_intersect()
@@ -61,37 +61,45 @@ void test_intersect()
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 1, Vec3(4, 1, 0))); // s
+		Sphere("sph001", 1, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+	);
 
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 3, Vec3(4, 1, 0))); // s
+		Sphere("sph001", 3, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+	);
+		
 
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 5, Vec3(4, 1, 0))); // s
+		Sphere("sph001", 5, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", sqrt(3), Vec3(3, 3, 3))); // s
+		Sphere("sph001", sqrt(3), Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
+	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(3, 3, 3))); // s
+		Sphere("sph001", 0.5, Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
+	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(20, 20, 20))); // s
+		Sphere("sph001", 0.5, Vec3(20, 20, 20), Vec3(0, 0, 0)) // s
+	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(20, 0, 0))); // s
+		Sphere("sph001", 0.5, Vec3(20, 0, 0), Vec3(0, 0, 0)) // s
+	);
 }
 
 int main(int argc, char **argv)
@@ -103,10 +111,12 @@ int main(int argc, char **argv)
 	char* file_name_arg = argv[1];
 	string file_name(PROJECT_DATA_DIR);
 	file_name += file_name_arg;
+	surface_map = new unordered_map<string, Surface>;
 	parse_file(file_name);
+	delete surface_map;
 
 	// test_parse(); return 0;
-	test_intersect();
+	test_intersect(); return 0;
 
 	// platform-independent timing[
     auto startTime = std::chrono::high_resolution_clock::now();

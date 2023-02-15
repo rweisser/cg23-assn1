@@ -11,17 +11,9 @@ using namespace::std;
 #include "Vec3.hpp"
 #include "Sphere.hpp"
 
-extern unordered_map<string, Surface> surface_map;
-
 inline
-Sphere::Sphere(string surface_name, double radius, Vec3 center)
-    : surface_name(surface_name), radius(radius), center(center) {}
-
-inline
-Vec3 Sphere::color()
-{
-    return surface_map[surface_name].color;
-}
+Sphere::Sphere(string surface_name, double radius, Vec3 center, Vec3 color)
+    : surface_name(surface_name), radius(radius), center(center), color(color) {}
 
 inline
 ostream& operator<<(ostream& os, const Sphere& s)
@@ -29,8 +21,10 @@ ostream& operator<<(ostream& os, const Sphere& s)
     os << "Sphere("
         << s.surface_name
         << ","
-        << s.radius <<
-        ","
-        << s.center << ")";
+        << s.radius
+        << ","
+        << s.center
+        << ","
+        << s.color << ")";
     return os;
 }
