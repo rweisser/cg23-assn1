@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 	delete surface_map;
 
 	// test_parse(); return 0;
-	test_intersect(); return 0;
+	// test_intersect(); return 0;
 
 	// platform-independent timing[
     auto startTime = std::chrono::high_resolution_clock::now();

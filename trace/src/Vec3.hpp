@@ -47,16 +47,6 @@ struct Vec3
 	Vec3& operator+=(const Vec3& v);
 	Vec3 operator-() const;
 	Vec3& operator-=(const Vec3& v);
-
-	// To avoid confusion when using a vector to represent the look screen,
-	// I added the following so that I can use u, v, and w instead of
-	// x, y, and z.
-	int  u() const   { return x; }
-	void u(double u) { x = u; }
-	int  v() const   { return y; }
-	void v(double v) { y = v; }
-	int  w() const   { return z; }
-	void w(double w) { z = w; }
 }; // Vec3
 
 Vec3 operator+(Vec3 v1, const Vec3& v2);         // vector addition  
