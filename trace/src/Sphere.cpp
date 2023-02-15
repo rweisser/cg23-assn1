@@ -17,10 +17,8 @@ using namespace::std;
 bool Sphere::intersect(const Vec3& e, const Vec3& d, double& t1, double& t2)
 {
     Vec3 g = e - center;
-    cout << "g = " << g << endl;
     double discriminant = 
         d.dot(g) * d.dot(g) - d.dot(d) * (g.dot(g) - radius * radius);
-    cout << "discriminant = " << discriminant << endl;
     if (discriminant < 0)
         return false;
     t1 = ((-d).dot(g) - sqrt(discriminant)) / d.dot(d);
