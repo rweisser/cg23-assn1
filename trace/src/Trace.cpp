@@ -26,6 +26,12 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
+void inline write_pixel(const Vec3& color);
+void init_look_screen();
+void ray_trace();
+
+static ofstream ppmfile;
+
 void test_parse()
 {
 	cout << "background: " << background << endl;
@@ -103,8 +109,6 @@ void test_intersect()
 	);
 }
 
-void init_look_screen();
-
 int main(int argc, char **argv)
 {
 	// platform-independent timing
@@ -126,7 +130,19 @@ int main(int argc, char **argv)
 	// test_intersect(); return 0;
 	
 	init_look_screen();
-	cout << look_screen;
+	// cout << look_screen;
+
+	// open ppm output file in trace directory
+	string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
+	ppmfile.open(ppmname, std::ios::out | std::ios::binary);
+	if (ppmfile.fail()) {
+		std::cerr << "Error opening " << ppmname << '\n';
+		return 1;
+	}
+
+	ray_trace();
+
+	ppmfile.close();
 
 	// hard-coded data for a 4x4 image
 	//int width = 4, height = 4;
@@ -136,14 +152,6 @@ int main(int argc, char **argv)
 	//	{  0,   0, 255}, {170, 170, 170}, {255, 255, 255}, {255,   0,   0},
 	//	{  0,   0, 255}, {  0, 255,   0}, {  0, 255,   0}, {  0, 255,   0}
 	//};
-
-	//// open ppm output file in trace directory
-	//std::string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
-	//std::fstream ppmfile(ppmname, std::ios::out | std::ios::binary);
-	//if(ppmfile.fail()) {
-	//	std::cerr << "Error opening " << ppmname << '\n';
-	//	return 1;
-	//}
 
 	//// output ppm format: text header then raw binary data
 	//ppmfile << "P6\n" << width << " " << height << "\n255\n";
@@ -159,7 +167,6 @@ int main(int argc, char **argv)
 void init_look_screen() {
 	Vec3 wtemp = eyep - lookp;
 	double d = wtemp.mag();
-	cout << "d = " << d << endl;
 	look_screen.w = wtemp.normalize();
 	look_screen.u = up.cross(look_screen.w).normalize();
 	look_screen.v = look_screen.w.cross(look_screen.u);
@@ -167,7 +174,6 @@ void init_look_screen() {
 	// Horizontal fov
 	int degrees = fov.x;
 	double theta = degrees * PI / 180;
-	cout << theta << "," << PI / 4 << endl;
 	double right = d * tan(theta / 2);
 	look_screen.left = -right;
 	look_screen.right = right;
@@ -183,3 +189,14 @@ void init_look_screen() {
 	look_screen.pixelsv = screen_size.y;
 }
 
+void ray_trace()
+{
+
+}
+
+void inline write_pixel(const Vec3& color)
+{
+	int x = min(255, static_cast<int>(color.x * 255));
+	int y = min(255, static_cast<int>(color.y * 255));
+	int z = min(255, static_cast<int>(color.z * 255));
+}
