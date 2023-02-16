@@ -74,7 +74,6 @@ void read_file()
 void parse_vec2(Vec2& v) {
     double x, y;
     ray_file >> x >> y;
-    cout << x << y << endl;
     v = { x, y };
 }
 

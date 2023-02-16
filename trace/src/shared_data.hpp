@@ -11,6 +11,7 @@ using namespace::std;
 #include <unordered_map>
 #include <vector>
 
+#include "Screen.hpp"
 #include "Sphere.hpp"
 #include "Surface.hpp"
 #include "Vec2.hpp"
@@ -30,4 +31,4 @@ EXTERN Vec2 fov;
 EXTERN Vec2 screen_size;
 EXTERN unordered_map<string, Surface>* surface_map;
 EXTERN vector<Sphere> sphere_vec;
-EXTERN Vec3 look_screen; // u = x, v = y, w = z
+EXTERN Screen look_screen;
