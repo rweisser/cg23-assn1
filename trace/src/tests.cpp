@@ -7,6 +7,8 @@
 
 #include "shared_data.hpp"
 
+Vec3 pixel_center(double d, int x, int y);
+
 void test_parse()
 {
 	cout << "background: " << background << endl;
@@ -96,3 +98,20 @@ void test_cross()
 	test_cross2(Vec3(1, -1, -1), Vec3(10, 11, 12));
 }
 
+void test_pixel_center2(double d, int x, int y)
+{
+	cout << x << " " << y << " -> " << pixel_center(d, x, y) << endl;
+}
+
+void test_pixel_center()
+{
+	double d = (eyep - lookp).mag();
+	cout << "eyep.mag() = " << eyep.mag() << endl;
+	cout << "d = " << d << endl;
+	cout << "eyep - d * w = " << eyep - d * look_screen.w << endl;
+	test_pixel_center2(d, 0, 0);
+	test_pixel_center2(d, 511, 0);
+	test_pixel_center2(d, 0, 511);
+	test_pixel_center2(d, 511, 511);
+	test_pixel_center2(d, 127, 127);
+}

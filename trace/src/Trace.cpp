@@ -32,7 +32,7 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
-inline Vec3 pixel_center(int x, int y);
+inline Vec3 pixel_center(double d, int x, int y);
 void inline write_pixel(const Vec3& color);
 void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3 c);
@@ -62,10 +62,14 @@ int main(int argc, char **argv)
 	// XXX REMOVE:
 	// test_parse(); return 0;
 	// test_intersect(); return 0;
-	///test_cross(); return 0;
-
+	// test_cross(); return 0;
 	init_look_screen();
-	// cout << look_screen;
+
+	// XXX REMOVE:
+	cout << look_screen;
+	cout << "eyep = " << eyep << endl;
+	test_pixel_center(); return 0;
+
 
 	// open ppm output file in trace directory
 	string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
@@ -75,8 +79,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	write_ppm_file_header();
-	write_pixel(Vec3(0, .5, 1));
-	// ray_trace(); // XXX
+	ray_trace();
 	ppmfile.close();
 
 	// hard-coded data for a 4x4 image
@@ -105,41 +108,50 @@ void init_look_screen() {
 	// Horizontal fov
 	int degrees = fov.x;
 	double theta = degrees * PI / 180;
-	double right = d * tan(theta / 2);
-	look_screen.left = -right;
-	look_screen.right = right;
+	look_screen.right = d * tan(theta / 2);
+	look_screen.left = -look_screen.right;
 	
 	// Vertical fov
 	degrees = fov.y;
 	theta = degrees * PI / 180;
-	double top = d * tan(theta / 2);
-	look_screen.bottom = -top;
-	look_screen.top = top;
+	look_screen.top = d * tan(theta / 2);
+	look_screen.bottom = -look_screen.top;
 
 	look_screen.pixelsh = screen_size.x;
 	look_screen.pixelsv = screen_size.y;
 }
 
-inline
-Vec3 pixel_center(int x, int y)
+// returns center of the pixel at (x, y).
+// d is the distance from eyep to lookp.
+// x and y are the screen coordinates.
+// inline             // XXX change back to inline
+Vec3 pixel_center(double d, int x, int y)
 {
-	return look_screen.lp
-		 + (x + 0.5) * look_screen.v
-	     + (y + 0.5) * look_screen.u;
+	double left     = look_screen.left;
+	double right    = look_screen.right;
+	double top      = look_screen.top;
+	double bottom   = look_screen.bottom;
+	double pixelsh  = look_screen.pixelsh;
+	double pixelsy  = look_screen.pixelsv;
+	double screen_u = left + (right - left) * (x + 0.5) / pixelsh;
+	double screen_v = top + (bottom - top)  * (y + 0.5) / pixelsy;
+	return eyep - d * look_screen.w
+		 + screen_u * look_screen.u
+	     + screen_v * look_screen.v;
 }
 
 // Finds the closest object intersected by the ray from e in the direction
 // of d.  The return value is the distance factor closest.  The color of the
 // object is returned in color.  If no object is intersected, find_closest
 // returns a negative value and leaves color unchanged.
-double find_closest(const Vec3& e, const Vec3& d, Vec3 color)
+double find_closest(const Vec3& e, const Vec3& pc, Vec3 color)
 {
 	double closest = -1;
 	double t1 = DBL_MAX;
 	double t2 = DBL_MAX;
 	double dist = 0;
 	for (Sphere s : sphere_vec) {
-		bool found_intersection = s.intersect(e, d, t1, t2);
+		bool found_intersection = s.intersect(e, pc, t1, t2);
 		if (!found_intersection)
 			continue;
 		if (t1 <= 0 && t2 <= 0)
@@ -156,14 +168,13 @@ double find_closest(const Vec3& e, const Vec3& d, Vec3 color)
 void ray_trace()
 {
 	Vec3 pc;         // pixel center
-	Vec3 d;          // direction
 	double t = 0;    // distance factor of closest object, if exists
 	Vec3 color;      // color of closest object, if exists
+	double d = (eyep - lookp).mag(); // distance from eyep to lookp
 	for (int y = 0; y < screen_size.y; y++)
 		for (int x = 0; x < screen_size.x; x++) {
-			pc = pixel_center(x, y);
-			d = eyep - pc;
-			t = find_closest(eyep, d, color);
+			pc = pixel_center(d, x, y);
+			t = find_closest(eyep, pc, color);
 			if (t <= 0)
 				write_pixel(background);
 			else
