@@ -21,6 +21,7 @@ struct Vec3
 	double x, y, z;
 
 	static const Vec3 Vec3_ZERO;        // zero vector
+	static const double TOLERANCE;      // tolerance for equality
 
 	Vec3();
 	Vec3(double x, double y, double z);
@@ -42,11 +43,12 @@ struct Vec3
 	Vec3 normalize() const;             // change length to 1
 	string str() const;                 // stringify
 
-	Vec3 operator*(double k) const;     // scalar multiplication
-	bool operator==(const Vec3& v) const;
-	Vec3& operator+=(const Vec3& v);
-	Vec3 operator-() const;
-	Vec3& operator-=(const Vec3& v);
+	Vec3 operator*(double k) const;       // scalar multiplication
+	bool operator==(const Vec3& v) const; // equality
+	bool equalt(const Vec3& v) const;     // equality with tolerance
+	Vec3& operator+=(const Vec3& v);      // vector +=
+	Vec3 operator-() const;               // vector subtraction
+	Vec3& operator-=(const Vec3& v);      // vector -=
 }; // Vec3
 
 Vec3 operator+(Vec3 v1, const Vec3& v2);         // vector addition  
@@ -54,8 +56,8 @@ Vec3 operator-(Vec3 v1, const Vec3& v2);         // vector substraction
 Vec3 operator*(double k, const Vec3& v);         // scalar multiplication
 Vec3 operator/(const Vec3& v, double k);         // scalar division
 ostream& operator<<(ostream& os, const Vec3& v); // output as string
-string ToString(const Vec3& v);                  // stringify for test
-                                                 //     framework
+string ToString(const Vec3& v);                  // stringify (for test
+                                                 //  framework)
 
 // ===========================================================================
 // Include the implementation of the online and template functions.

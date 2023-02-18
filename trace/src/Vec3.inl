@@ -120,6 +120,19 @@ bool Vec3::operator==(const Vec3& v) const
 }
 
 inline
+bool Vec3::equalt(const Vec3& v) const
+{
+	// I used the following instead of
+	//     return (*this - v).map < TOLERANCE;
+	// to avoid allocating a Vec3 object.  It also
+	// avoids using the sqrt function.
+	return (x - v.x) * (x - v.x)
+		 + (y - v.y) * (y - v.y)
+		 + (z - v.z) * (z - v.z)
+		 < TOLERANCE * TOLERANCE;
+}
+
+inline
 Vec3& Vec3::operator+=(const Vec3& v)
 {
 	x += v.x;

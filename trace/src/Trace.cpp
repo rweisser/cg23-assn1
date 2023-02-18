@@ -26,6 +26,7 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
+Vec3 pixel_center(int x, int y);
 void inline write_pixel(const Vec3& color);
 void init_look_screen();
 void ray_trace();
@@ -109,6 +110,19 @@ void test_intersect()
 	);
 }
 
+void test_cross2(const Vec3& v1, const Vec3& v2)
+{
+	cout << v1 << " X " << v2 << " = " << v1.cross(v2) << endl;
+	cout << v2 << " X " << v1 << " = " << v2.cross(v1) << endl;
+}
+
+void test_cross()
+{
+	test_cross2(Vec3(1, 2, 3), Vec3(1, 1, 1));
+	test_cross2(Vec3(1, 0, 0), Vec3(0, 1, 0));
+	test_cross2(Vec3(1, -1, -1), Vec3(10, 11, 12));
+}
+
 int main(int argc, char **argv)
 {
 	// platform-independent timing
@@ -128,6 +142,7 @@ int main(int argc, char **argv)
 
 	// test_parse(); return 0;
 	// test_intersect(); return 0;
+	test_cross(); return 0;
 	
 	init_look_screen();
 	// cout << look_screen;
@@ -192,6 +207,14 @@ void init_look_screen() {
 void ray_trace()
 {
 
+}
+
+inline
+Vec3 pixel_center(int x, int y)
+{
+	Vec3 pc = look_screen.lp
+		    + (x + 0.5) * look_screen.v
+	     	+ (y + 0.5) * look_screen.u;
 }
 
 void inline write_pixel(const Vec3& color)
