@@ -23,7 +23,6 @@ void   parse_surface();
 void   read_file();
 
 static ifstream ray_file;
-static string push_back; // empty at start
 
 void parse_file(const string& file_name)
 {

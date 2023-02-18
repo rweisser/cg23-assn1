@@ -14,7 +14,7 @@ using namespace::std;
 // with the lowest in t1.  Either t1 or t2 might be negative.
 // If false, t1 and t2 will be unchanged.
 // ===========================================================================
-bool Sphere::intersect(const Vec3& e, const Vec3& d, double& t1, double& t2)
+bool Sphere::intersect(const Vec3& e, const Vec3& d, double& t1, double& t2) const
 {
     Vec3 g = e - center;
     double discriminant = 
