@@ -32,13 +32,13 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
-Vec3 pixel_center(int x, int y);
+inline Vec3 pixel_center(int x, int y);
 void inline write_pixel(const Vec3& color);
 void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3 c);
 void ray_trace();
 void inline write_pixel(const Vec3& color);
-void write_file_header();
+void write_ppm_file_header();
 
 static ofstream ppmfile;
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 {
 	// platform-independent timing
 	auto startTime = std::chrono::high_resolution_clock::now();
-
+	
 	if (argc != 2) {
 		cout << "usage: " << usage << endl;
 		exit(1);
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	// test_parse(); return 0;
 	// test_intersect(); return 0;
 	///test_cross(); return 0;
-	
+
 	init_look_screen();
 	// cout << look_screen;
 
@@ -74,9 +74,9 @@ int main(int argc, char **argv)
 		std::cerr << "Error opening " << ppmname << '\n';
 		return 1;
 	}
-
-	ray_trace();
-
+	write_ppm_file_header();
+	write_pixel(Vec3(0, .5, 1));
+	// ray_trace(); // XXX
 	ppmfile.close();
 
 	// hard-coded data for a 4x4 image
@@ -87,10 +87,6 @@ int main(int argc, char **argv)
 	//	{  0,   0, 255}, {170, 170, 170}, {255, 255, 255}, {255,   0,   0},
 	//	{  0,   0, 255}, {  0, 255,   0}, {  0, 255,   0}, {  0, 255,   0}
 	//};
-
-	//// output ppm format: text header then raw binary data
-	//ppmfile << "P6\n" << width << " " << height << "\n255\n";
-	//ppmfile.write((char*)(&image[0]), width * height * sizeof(uColor));
 
 	// report final timing
     auto endTime = std::chrono::high_resolution_clock::now();
@@ -128,7 +124,7 @@ inline
 Vec3 pixel_center(int x, int y)
 {
 	return look_screen.lp
-         + (x + 0.5) * look_screen.v
+		 + (x + 0.5) * look_screen.v
 	     + (y + 0.5) * look_screen.u;
 }
 
@@ -155,7 +151,6 @@ double find_closest(const Vec3& e, const Vec3& d, Vec3 color)
 		}
 	}
 	return closest;
-
 }
 
 void ray_trace()
@@ -178,11 +173,13 @@ void ray_trace()
 
 void inline write_pixel(const Vec3& color)
 {
-	int x = min(255, static_cast<int>(color.x * 255));
-	int y = min(255, static_cast<int>(color.y * 255));
-	int z = min(255, static_cast<int>(color.z * 255));
+	uColor c;
+	c.r = min(255, static_cast<int>(color.x * 255));
+	c.g = min(255, static_cast<int>(color.y * 255));
+	c.b = min(255, static_cast<int>(color.z * 255));
+	ppmfile.write((char *) &c, sizeof c);
 }
 
-void write_file_header() {
-
+void write_ppm_file_header() {
+	ppmfile << "P6\n" << screen_size.x << " " << screen_size.y << "\n255\n";
 }
