@@ -12,3 +12,4 @@ bld/
 [Bb]uild/
 .vs/
 cm.bat
+tests*
