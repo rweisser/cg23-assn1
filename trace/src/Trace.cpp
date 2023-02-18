@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <float.h>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -78,7 +79,6 @@ void test_intersect()
 		Sphere("sph001", 3, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
 	);
 		
-
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
@@ -204,17 +204,28 @@ void init_look_screen() {
 	look_screen.pixelsv = screen_size.y;
 }
 
-void ray_trace()
-{
-
-}
-
 inline
 Vec3 pixel_center(int x, int y)
 {
-	Vec3 pc = look_screen.lp
-		    + (x + 0.5) * look_screen.v
-	     	+ (y + 0.5) * look_screen.u;
+	return look_screen.lp
+         + (x + 0.5) * look_screen.v
+	     + (y + 0.5) * look_screen.u;
+}
+
+void ray_trace()
+{
+	for (int y = 0; y < screen_size.y; y++)
+		for (int x = 0; x < screen_size.x; x++) {
+			Vec3 pc = pixel_center(x, y);
+			Vec3 ray = eyep - pc;
+			double t = DBL_MAX;
+			Vec3 color;
+			// check intersections
+			if (t == DBL_MAX)
+				; // write out background color
+			else
+				; // write out pixel color
+		}
 }
 
 void inline write_pixel(const Vec3& color)
