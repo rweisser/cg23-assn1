@@ -10,7 +10,7 @@ using namespace::std;
 // Sphere::intersect
 // 
 // Returns true if the ray from e in the direction d intersects this,
-// otherwise false.  If true, the two values of t, will be in t1 and t2,
+// otherwise false.  If true, the two values of t  will go into t1 and t2,
 // with the lowest in t1.  Either t1 or t2 might be negative.
 // If false, t1 and t2 will be unchanged.
 // ===========================================================================

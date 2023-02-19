@@ -45,7 +45,6 @@ void read_file()
         ray_file >> token;
         if (ray_file.eof())
             break;
-        // XXX cout << "In read_file, token = " << token << endl;
         if (token == "background")
             parse_vec3(background);
         else if (token == "eyep")
@@ -69,7 +68,7 @@ void read_file()
 // Parse functions.
 // =================F==========================================================
 
-// parse background fov and screen
+// parse background, fov, and screen
 void parse_vec2(Vec2& v) {
     double x, y;
     ray_file >> x >> y;
@@ -90,10 +89,8 @@ void parse_surface()
     double r, x, y, z;
 
     ray_file >> name;
-    // XXX cout << "in parse_surface, name = " << name << endl;
     while (1) {
         ray_file >> token;
-        // XXX cout << "in parse_surface while loop, token = " << token << endl;
         if (token == "diffuse") {
             ray_file >> x >> y >> z;
             Surface s(name, { x, y, z });

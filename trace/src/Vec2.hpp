@@ -4,8 +4,8 @@
 // Vec2 - Two dimensional vectors.  Header.
 // 
 // Everything is inline for speed.  The coordinates x any y are public
-// for convenience.  The implementation file is Vec2Inline.h.  There is
-// no Vec2.cpp file.
+// for convenience.  The implementation file is Vec2.inl.  The only
+// thing in Vec2.cpp is static member initialization.
 // ===========================================================================
 
 using namespace std;

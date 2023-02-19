@@ -5,7 +5,7 @@
 // 
 // Everything is inline for speed.  The coordinates x, y any z are public
 // for convenience.  The implementation file is Vec3Inline.h.  Vec3.cpp
-// just defines Vec3::VEC_ZERO.
+// just initializes static data members.
 // 
 // Vec3 holds a vector or a color.
 // ===========================================================================
@@ -21,7 +21,7 @@ struct Vec3
 	double x, y, z;
 
 	static const Vec3 Vec3_ZERO;        // zero vector
-	static const double TOLERANCE;      // tolerance for equality
+	static const double TOLERANCE;      // tolerance for equality (= 0.0001)
 
 	Vec3();
 	Vec3(double x, double y, double z);
@@ -45,7 +45,7 @@ struct Vec3
 
 	Vec3 operator*(double k) const;       // scalar multiplication
 	bool operator==(const Vec3& v) const; // equality
-	bool equalt(const Vec3& v) const;     // equality with tolerance
+	bool eqt(const Vec3& v) const;        // equality with tolerance
 	Vec3& operator+=(const Vec3& v);      // vector +=
 	Vec3 operator-() const;               // vector subtraction
 	Vec3& operator-=(const Vec3& v);      // vector -=

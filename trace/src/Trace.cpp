@@ -18,9 +18,6 @@
 #include <string>
 #include <vector>
 
-// XXX REMOVE:
-#include "tests.hpp"
-
 #include "shared_data.hpp"
 #include "Sphere.hpp"
 #include "Surface.hpp"
@@ -72,7 +69,7 @@ int main(int argc, char **argv)
 
 
 	// open ppm output file in trace directory
-	string ppmname = std::string(PROJECT_BASE_DIR) + "trace.ppm";
+	string ppmname = std::string(PROJECT_BUILD_DIR) + "trace.ppm";
 	ppmfile.open(ppmname, std::ios::out | std::ios::binary);
 	if (ppmfile.fail()) {
 		std::cerr << "Error opening " << ppmname << '\n';
@@ -150,11 +147,8 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 	double t1        = DBL_MAX;
 	double t2        = DBL_MAX;
 	double dist      = 0;
-	int n_intersects = 0;
 	for (Sphere s : sphere_vec) {
 		bool found_intersection = s.intersect(e, pc, t1, t2);
-		if (++n_intersects % 5000 == 0)
-			cout << n_intersects << " intersections" << endl;
 		if (!found_intersection)
 			continue;
 		if (t1 <= 0 && t2 <= 0)
@@ -174,17 +168,20 @@ void ray_trace()
 	double t = 0;    // distance factor of closest object, if exists
 	Vec3 color;      // color of closest object, if exists
 	double d = (eyep - lookp).mag(); // distance from eyep to lookp
-	for (int y = 0; y < screen_size.y; y++)
+	int y;
+	for (y = 0; y < screen_size.y; y++) {
+		if (y % 100 == 0 && y > 0)
+			cout << y << " rows traced" << endl;
 		for (int x = 0; x < screen_size.x; x++) {
 			pc = pixel_center(d, x, y);
 			t = find_closest(eyep, pc - eyep, color);
 			if (t <= 0)
 				write_pixel(background);
-			else {
+			else
 				write_pixel(color);
-				// cout << "t = " << t << ", color " << color << endl; // XXX
-			}
 		}
+	}
+	cout << y << " rows traced, trace completed" << endl;
 }
 
 void inline write_pixel(const Vec3& color)

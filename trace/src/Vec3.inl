@@ -84,9 +84,8 @@ double Vec3::dot(const Vec3& v) const
 inline
 Vec3 Vec3::cross(const Vec3& v) const
 {
-	return Vec3( (y * v.z - z * v.y),
-		    // - (x * v.z - z * v.x),
-		         (z * v.x - x * v.z),
+	return Vec3( (y * v.z - z * v.y),	   
+		         (z * v.x - x * v.z),   // - (x * v.z - z * v.x),
 		         (x * v.y - y * v.x) );
 }
 
@@ -120,7 +119,7 @@ bool Vec3::operator==(const Vec3& v) const
 }
 
 inline
-bool Vec3::equalt(const Vec3& v) const
+bool Vec3::eqt(const Vec3& v) const
 {
 	// I used the following instead of
 	//     return (*this - v).map < TOLERANCE;
