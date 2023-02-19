@@ -35,7 +35,7 @@ const double PI = 3.141592653589793;
 inline Vec3 pixel_center(double d, int x, int y);
 void inline write_pixel(const Vec3& color);
 void init_look_screen();
-double find_closest(const Vec3& e, const Vec3& d, Vec3 c);
+double find_closest(const Vec3& e, const Vec3& d, Vec3& c);
 void ray_trace();
 void inline write_pixel(const Vec3& color);
 void write_ppm_file_header();
@@ -66,9 +66,9 @@ int main(int argc, char **argv)
 	init_look_screen();
 
 	// XXX REMOVE:
-	cout << look_screen;
-	cout << "eyep = " << eyep << endl;
-	test_pixel_center(); return 0;
+	// cout << look_screen;
+	// cout << "eyep = " << eyep << endl;
+	// test_pixel_center(); return 0;
 
 
 	// open ppm output file in trace directory
@@ -144,14 +144,17 @@ Vec3 pixel_center(double d, int x, int y)
 // of d.  The return value is the distance factor closest.  The color of the
 // object is returned in color.  If no object is intersected, find_closest
 // returns a negative value and leaves color unchanged.
-double find_closest(const Vec3& e, const Vec3& pc, Vec3 color)
+double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 {
-	double closest = -1;
-	double t1 = DBL_MAX;
-	double t2 = DBL_MAX;
-	double dist = 0;
+	double closest   = DBL_MAX;
+	double t1        = DBL_MAX;
+	double t2        = DBL_MAX;
+	double dist      = 0;
+	int n_intersects = 0;
 	for (Sphere s : sphere_vec) {
 		bool found_intersection = s.intersect(e, pc, t1, t2);
+		if (++n_intersects % 5000 == 0)
+			cout << n_intersects << " intersections" << endl;
 		if (!found_intersection)
 			continue;
 		if (t1 <= 0 && t2 <= 0)
@@ -162,7 +165,7 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 color)
 			color = s.color;
 		}
 	}
-	return closest;
+	return closest == DBL_MAX ? -1 : closest;
 }
 
 void ray_trace()
@@ -174,11 +177,13 @@ void ray_trace()
 	for (int y = 0; y < screen_size.y; y++)
 		for (int x = 0; x < screen_size.x; x++) {
 			pc = pixel_center(d, x, y);
-			t = find_closest(eyep, pc, color);
+			t = find_closest(eyep, pc - eyep, color);
 			if (t <= 0)
 				write_pixel(background);
-			else
+			else {
 				write_pixel(color);
+				// cout << "t = " << t << ", color " << color << endl; // XXX
+			}
 		}
 }
 
