@@ -1,5 +1,9 @@
 Assignment 1
 
+Everything appears to working.  The only thing that I am worried about
+is that the colors in my image seem to be brighter or somehow more
+intense than the ones in the picture on the assignment page.
+
 NOTE:  As I mentioned to Professor Olano during office hours, I wrote
 the Vec2 and Vec3 classes before class started.  After reading some of
 the Shirley Fundamentals of Computer Graphics before class started, I
@@ -7,7 +11,20 @@ created them in a seperate Visual Studio 2019 solution, which I would
 be happy to show if necessary.  The first commit on the related files
 was therefore of almost complete versions, since they were created
 before I started using git.  After that, I did have to make some minor
-changes, which do appear in commits.  I hope this is okay.
+changes, which do appear in commits.  He said that it was no problem.
 
 I looked up a lot of c++ documentation on cppreference.com.  My c++
 knowledge did not include much after C++98.
+
+I made one decision which I regret.  The program wrote out each pixel
+as soon as it calculated it.  When I decided to do that, I wasn't
+thinking about how much slower it would be, in comparison with writing
+out an array of pixels with one system call.
+
+Outside sources:
+
+    cppreference.com.  I went there often.
+    
+    Shirley.  Fundamentals of Computer Graphics.  I read some sections
+    in this book, but the level was generally too high.  I found the
+    class slides to be more helpful than the book.
