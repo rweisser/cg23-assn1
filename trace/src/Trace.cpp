@@ -55,18 +55,7 @@ int main(int argc, char **argv)
 	parse_file(file_name);
 	delete surface_map;
 	cout << "finished parsing input" << endl;
-
-	// XXX REMOVE:
-	// test_parse(); return 0;
-	// test_intersect(); return 0;
-	// test_cross(); return 0;
 	init_look_screen();
-
-	// XXX REMOVE:
-	// cout << look_screen;
-	// cout << "eyep = " << eyep << endl;
-	// test_pixel_center(); return 0;
-
 
 	// open ppm output file in trace directory
 	string ppmname = std::string(PROJECT_BUILD_DIR) + "trace.ppm";
