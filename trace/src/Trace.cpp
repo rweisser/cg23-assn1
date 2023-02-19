@@ -67,15 +67,7 @@ int main(int argc, char **argv)
 	write_ppm_file_header();
 	ray_trace();
 	ppmfile.close();
-
-	// hard-coded data for a 4x4 image
-	//int width = 4, height = 4;
-	//std::vector<uColor> image {
-	//	{255, 255,   0}, {255, 255,   0}, {255, 255,   0}, {255,   0,   0},
-	//	{  0,   0, 255}, {  0,   0,   0}, { 85,  85,  85}, {255,   0,   0},
-	//	{  0,   0, 255}, {170, 170, 170}, {255, 255, 255}, {255,   0,   0},
-	//	{  0,   0, 255}, {  0, 255,   0}, {  0, 255,   0}, {  0, 255,   0}
-	//};
+	cout << "trace completed" << endl;
 
 	// report final timing
     auto endTime = std::chrono::high_resolution_clock::now();
@@ -113,12 +105,15 @@ void init_look_screen() {
 // inline             // XXX change back to inline
 Vec3 pixel_center(double d, int x, int y)
 {
+	// I did all these assignments to make the following code easier to
+	// understand.  I hope the compiler optimizes all of the away.
 	double left     = look_screen.left;
 	double right    = look_screen.right;
 	double top      = look_screen.top;
 	double bottom   = look_screen.bottom;
 	double pixelsh  = look_screen.pixelsh;
 	double pixelsy  = look_screen.pixelsv;
+
 	double screen_u = left + (right - left) * (x + 0.5) / pixelsh;
 	double screen_v = top + (bottom - top)  * (y + 0.5) / pixelsy;
 	return eyep - d * look_screen.w
@@ -127,8 +122,10 @@ Vec3 pixel_center(double d, int x, int y)
 }
 
 // Finds the closest object intersected by the ray from e in the direction
-// of d.  The return value is the distance factor closest.  The color of the
-// object is returned in color.  If no object is intersected, find_closest
+// that goes through pc (pixel center.  The return value is the closest
+// distance factor t1 or t2.  The distance factor t as a value such that
+// e + t * (e - pc) hits the surface of an object.  The color of the object
+// is returned in color.  If no object is intersected, find_closest
 // returns a negative value and leaves color unchanged.
 double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 {
@@ -153,7 +150,7 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 
 void ray_trace()
 {
-	Vec3 pc;         // pixel center
+	Vec3 pc;         // pixel center or other ray origin
 	double t = 0;    // distance factor of closest object, if exists
 	Vec3 color;      // color of closest object, if exists
 	double d = (eyep - lookp).mag(); // distance from eyep to lookp
@@ -170,7 +167,7 @@ void ray_trace()
 				write_pixel(color);
 		}
 	}
-	cout << y << " rows traced, trace completed" << endl;
+	cout << y << " rows traced" << endl;
 }
 
 void inline write_pixel(const Vec3& color)
