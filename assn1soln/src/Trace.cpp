@@ -59,7 +59,7 @@ int main(int argc, char **argv)
             << (World::enables.polygons ? '+' : '-') << "polygons = primitives\n";
         cerr << '\n';
         cerr << "If file.ray is an absolute path, use directly\n";
-        cerr << "Otherwise input from " << PROJECT_BUILD_DIR << "file.ray\n";
+        cerr << "Otherwise input from " << PROJECT_DATA_DIR << "file.ray\n";
         cerr << "Output to " << PROJECT_BUILD_DIR << "trace.ppm\n";
         return 1;
     }
