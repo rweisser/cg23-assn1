@@ -1,3 +1,4 @@
+#pragma once
 // G.cpp
 
 #include <unordered_map>
@@ -11,7 +12,7 @@
 // A struct to hold global variables.  There will be one instance of this
 // struct which will be global in Trace.cpp and extern in any other files which
 // need it (like parse.cpp).
-struct G
+struct Gj
 {
     Vec3 background;
     Vec3 eyep;
