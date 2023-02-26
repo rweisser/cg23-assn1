@@ -29,12 +29,11 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
-inline Vec3 pixel_center(double d, int x, int y);
-void inline write_pixel(const Vec3& color);
+Vec3 pixel_center(double d, int x, int y);
+void write_pixel(const Vec3& color);
 void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3& c);
 void ray_trace();
-void inline write_pixel(const Vec3& color);
 void write_ppm_file_header();
 
 static ofstream ppmfile;
@@ -102,7 +101,6 @@ void init_look_screen() {
 // returns center of the pixel at (x, y).
 // d is the distance from eyep to lookp.
 // x and y are the screen coordinates.
-// inline             // XXX change back to inline
 Vec3 pixel_center(double d, int x, int y)
 {
 	// I did all these assignments to make the following code easier to
@@ -170,7 +168,7 @@ void ray_trace()
 	cout << y << " rows traced" << endl;
 }
 
-void inline write_pixel(const Vec3& color)
+void write_pixel(const Vec3& color)
 {
 	uColor c;
 	c.r = min(255, static_cast<int>(color.x * 255));
