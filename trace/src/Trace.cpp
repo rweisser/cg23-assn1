@@ -2,10 +2,6 @@
 // Trace.cpp
 // ===========================================================================
 
-// For shared_data.hpp to work correctly, MAIN must be defined in this file,
-// but must not be defined in any other file.
-#define MAIN
-
 #include "Color.hpp"
 #include "Config.h"
 
@@ -18,13 +14,15 @@
 #include <string>
 #include <vector>
 
-#include "shared_data.hpp"
+#include "G.hpp"
+#include "parse.hpp"
 #include "Sphere.hpp"
 #include "Surface.hpp"
 #include "Vec3.hpp"
-#include "parse.hpp"
 
 using namespace std;
+
+G g; // Global shared data
 
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
@@ -50,9 +48,9 @@ int main(int argc, char **argv)
 	char* file_name_arg = argv[1];
 	string file_name(PROJECT_DATA_DIR);
 	file_name += file_name_arg;
-	surface_map = new unordered_map<string, Surface>;
+	g.surface_map = new unordered_map<string, Surface>;
 	parse_file(file_name);
-	delete surface_map;
+	delete g.surface_map;
 	cout << "finished parsing input" << endl;
 	init_look_screen();
 
@@ -76,26 +74,26 @@ int main(int argc, char **argv)
 }
 
 void init_look_screen() {
-	Vec3 wtemp = eyep - lookp;
+	Vec3 wtemp = g.eyep - g.lookp;
 	double d = wtemp.mag();
-	look_screen.w = wtemp.normalize();
-	look_screen.u = up.cross(look_screen.w).normalize();
-	look_screen.v = look_screen.w.cross(look_screen.u);
+	g.look_screen.w = wtemp.normalize();
+	g.look_screen.u = g.up.cross(g.look_screen.w).normalize();
+	g.look_screen.v = g.look_screen.w.cross(g.look_screen.u);
 
 	// Horizontal fov
-	int degrees = fov.x;
+	int degrees = g.fov.x;
 	double theta = degrees * PI / 180;
-	look_screen.right = d * tan(theta / 2);
-	look_screen.left = -look_screen.right;
+	g.look_screen.right = d * tan(theta / 2);
+	g.look_screen.left = -g.look_screen.right;
 	
 	// Vertical fov
-	degrees = fov.y;
+	degrees = g.fov.y;
 	theta = degrees * PI / 180;
-	look_screen.top = d * tan(theta / 2);
-	look_screen.bottom = -look_screen.top;
+	g.look_screen.top = d * tan(theta / 2);
+	g.look_screen.bottom = -g.look_screen.top;
 
-	look_screen.pixelsh = screen_size.x;
-	look_screen.pixelsv = screen_size.y;
+	g.look_screen.pixelsh = g.screen_size.x;
+	g.look_screen.pixelsv = g.screen_size.y;
 }
 
 // returns center of the pixel at (x, y).
@@ -105,18 +103,18 @@ Vec3 pixel_center(double d, int x, int y)
 {
 	// I did all these assignments to make the following code easier to
 	// understand.  I hope the compiler optimizes all of the away.
-	double left     = look_screen.left;
-	double right    = look_screen.right;
-	double top      = look_screen.top;
-	double bottom   = look_screen.bottom;
-	double pixelsh  = look_screen.pixelsh;
-	double pixelsy  = look_screen.pixelsv;
+	double left     = g.look_screen.left;
+	double right    = g.look_screen.right;
+	double top      = g.look_screen.top;
+	double bottom   = g.look_screen.bottom;
+	double pixelsh  = g.look_screen.pixelsh;
+	double pixelsy  = g.look_screen.pixelsv;
 
 	double screen_u = left + (right - left) * (x + 0.5) / pixelsh;
 	double screen_v = top + (bottom - top)  * (y + 0.5) / pixelsy;
-	return eyep - d * look_screen.w
-		 + screen_u * look_screen.u
-	     + screen_v * look_screen.v;
+	return g.eyep - d * g.look_screen.w
+		 + screen_u   * g.look_screen.u
+	     + screen_v   * g.look_screen.v;
 }
 
 // Finds the closest object intersected by the ray from e in the direction
@@ -131,7 +129,7 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 	double t1        = DBL_MAX;
 	double t2        = DBL_MAX;
 	double dist      = 0;
-	for (Sphere s : sphere_vec) {
+	for (Sphere s : g.sphere_vec) {
 		bool found_intersection = s.intersect(e, pc, t1, t2);
 		if (!found_intersection)
 			continue;
@@ -151,16 +149,16 @@ void ray_trace()
 	Vec3 pc;         // pixel center or other ray origin
 	double t = 0;    // distance factor of closest object, if exists
 	Vec3 color;      // color of closest object, if exists
-	double d = (eyep - lookp).mag(); // distance from eyep to lookp
+	double d = (g.eyep - g.lookp).mag(); // distance from eyep to lookp
 	int y;
-	for (y = 0; y < screen_size.y; y++) {
+	for (y = 0; y < g.screen_size.y; y++) {
 		if (y % 100 == 0 && y > 0)
 			cout << y << " rows traced" << endl;
-		for (int x = 0; x < screen_size.x; x++) {
+		for (int x = 0; x < g.screen_size.x; x++) {
 			pc = pixel_center(d, x, y);
-			t = find_closest(eyep, pc - eyep, color);
+			t = find_closest(g.eyep, pc - g.eyep, color);
 			if (t <= 0)
-				write_pixel(background);
+				write_pixel(g.background);
 			else
 				write_pixel(color);
 		}
@@ -178,5 +176,9 @@ void write_pixel(const Vec3& color)
 }
 
 void write_ppm_file_header() {
-	ppmfile << "P6\n" << screen_size.x << " " << screen_size.y << "\n255\n";
+	ppmfile << "P6\n"
+		    << g.screen_size.x
+		    << " " 
+		    << g.screen_size.y
+		    << "\n255\n";
 }

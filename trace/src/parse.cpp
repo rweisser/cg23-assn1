@@ -13,8 +13,10 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-#include "shared_data.hpp"
+#include "G.hpp"
 #include "Sphere.hpp"
+
+extern G g; // global shared data
 
 void   parse_vec2(Vec2 &v);
 void   parse_vec3(Vec3 &v);
@@ -46,17 +48,17 @@ void read_file()
         if (ray_file.eof())
             break;
         if (token == "background")
-            parse_vec3(background);
+            parse_vec3(g.background);
         else if (token == "eyep")
-            parse_vec3(eyep);
+            parse_vec3(g.eyep);
         else if (token == "lookp")
-            parse_vec3(lookp);
+            parse_vec3(g.lookp);
         else if (token == "up")
-            parse_vec3(up);
+            parse_vec3(g.up);
         else if (token == "fov")
-            parse_vec2(fov);
+            parse_vec2(g.fov);
         else if (token == "screen")
-            parse_vec2(screen_size);
+            parse_vec2(g.screen_size);
         else if (token == "surface")
              parse_surface();
         else if (token == "sphere")
@@ -94,7 +96,7 @@ void parse_surface()
         if (token == "diffuse") {
             ray_file >> x >> y >> z;
             Surface s(name, { x, y, z });
-            surface_map->insert({ s.name, s });
+            g.surface_map->insert({ s.name, s });
             return;
         }
     }
@@ -105,7 +107,7 @@ void parse_sphere()
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    Vec3 color = (*surface_map)[surface_name].color;
+    Vec3 color = (*g.surface_map)[surface_name].color;
     Sphere s(surface_name, radius, Vec3(x, y, z), color);
-    sphere_vec.push_back(s);
+    g.sphere_vec.push_back(s);
 }

@@ -6,7 +6,6 @@
 
 using namespace::std;
 
-#include "shared_data.hpp"
 #include "Surface.hpp"
 #include "Vec3.hpp"
 #include "Sphere.hpp"
