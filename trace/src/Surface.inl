@@ -10,11 +10,12 @@ using namespace::std;
 
 inline
 Surface::Surface()
-    : name(""), color(Vec3::Vec3_ZERO) {}
+    : name("") {}
 
 inline
-Surface::Surface(string name, Vec3 color)
-    : name(name), color(color) {}
+Surface::Surface(string name, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+                 float specpow, float reflect)
+    : name(name), ambient(ambient), diffuse(diffuse), specular(specular), specpow(specpow), reflect(reflect) {}
 
 inline
 ostream& operator<<(ostream& os, const Surface& s)
@@ -22,7 +23,7 @@ ostream& operator<<(ostream& os, const Surface& s)
     os << "Surface("
         << s.name
         << ","
-        << s.color
+        << s.diffuse
         << ")";
     return os;
 }

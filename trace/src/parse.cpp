@@ -107,7 +107,7 @@ void parse_sphere()
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    Vec3 color = (*g.surface_map)[surface_name].color;
-    Sphere s(surface_name, radius, Vec3(x, y, z), color);
+    Vec3 diffuse = (*g.surface_map)[surface_name].diffuse;
+    Sphere s(surface_name, radius, Vec3(x, y, z), diffuse);
     g.sphere_vec.push_back(s);
 }

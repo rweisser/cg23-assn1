@@ -13,10 +13,14 @@ using namespace::std;
 struct Surface
 {
     string name;
-    Vec3 color;
+    Vec3 ambient;
+    Vec3 diffuse;
+    Vec3 specular;
+    float specpow;
+    float reflect;
 
     Surface();
-    Surface(string name, Vec3 color);
+    Surface(string name, Vec3 ambient, Vec3 diffuse, Vec3 specular, float specpow, float reflect);
 };
 
 #include "Surface.inl"
