@@ -5,6 +5,7 @@
 struct Light
 {
     Light();
+    Light(float intensity, Vec3 loc);
 
     float intensity;
     Vec3 loc;

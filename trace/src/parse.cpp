@@ -64,6 +64,11 @@ void read_file()
         else if (token == "sphere")
             parse_sphere();
     }
+    // If there are no light sources, add a default
+    if (g.light_vec.empty()) {
+        Light l(1, Vec3(1, -1, 1));
+        g.light_vec.push_back(l);
+    }
 }
 
 // ===========================================================================
@@ -89,17 +94,34 @@ void parse_surface()
     string name;
     string token;
     double r, x, y, z;
+    Vec3 ambient;
+    Vec3 diffuse;
+    Vec3 specular;
+    float specpow = -1;
+    float reflect = -1;
+    Surface s;
 
     ray_file >> name;
     while (1) {
         ray_file >> token;
-        if (token == "diffuse") {
+        if (token == "ambient") {
             ray_file >> x >> y >> z;
-            Surface s(name, { x, y, z });
-            g.surface_map->insert({ s.name, s });
-            return;
+            ambient = { x, y, z };
+        }
+        else if (token == "diffuse") {
+            ray_file >> x >> y >> z;
+            diffuse = { x, y, z };
         }
     }
+    s.name = name;
+    s.diffuse = diffuse;
+    s.ambient = ambient;
+    s.specular = specular;
+    if (specpow != -1)
+        s.specpow = specpow;
+    if (reflect != -1)
+        s.reflect = reflect;
+    g.surface_map->insert({ s.name, s });
 }
 
 void parse_sphere()

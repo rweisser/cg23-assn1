@@ -28,5 +28,6 @@ struct G
     unordered_map<string, Surface>* surface_map;
     vector<Sphere> sphere_vec;
     Screen look_screen;
+    Light amb_light;
     vector<Light> light_vec;
 };
