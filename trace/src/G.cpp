@@ -1,5 +1,7 @@
 // G.cpp
 
+#include <algorithm>
+
 #include "G.hpp"
 
 /*
@@ -11,8 +13,8 @@
     Vec2 screen_size;
     int maxdepth;
     float cutoff;
-    vector<Sphere> sphere_vec;
     Screen look_screen;
+    vector<Sphere> sphere_vec;
     vector<Light> light_vec;
 */
 
@@ -25,4 +27,23 @@ G::G() : background(1, 1, 1), // default to white
          screen_size(512, 512),
          maxdepth(15),
          cutoff(.002)
-         {}       
+         {}  
+
+ostream& operator<<(ostream& os, const G& g)
+{
+    cout << "background: " << g.background << endl;
+    cout << "eyep: " << g.eyep << endl;
+    cout << "lookp: " << g.lookp << endl;
+    cout << "up: " << g.up << endl;
+    cout << "fov: " << g.fov << endl;
+    cout << "screen_size: " << g.screen_size << endl;
+    cout << "max_depth: " << g.maxdepth << endl;
+    cout << "cutoff: " << g.cutoff << endl;
+    cout << "look_screen: " << g.look_screen << endl;
+    cout << endl;
+    for_each(g.sphere_vec.cbegin(), g.sphere_vec.cend(), [](const Sphere& s) { cout << s << endl; });
+    cout << endl;
+    for_each(g.light_vec.cbegin(), g.light_vec.cend(), [](const Light& l) { cout << l << endl; });
+
+    return os;
+}

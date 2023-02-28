@@ -1,6 +1,7 @@
 #pragma once
 // G.cpp
 
+#include <iostream>
 #include <vector>
 
 #include "Light.hpp"
@@ -24,7 +25,9 @@ struct G
     Vec2 screen_size;
     int maxdepth;
     float cutoff;
-    vector<Sphere> sphere_vec;
     Screen look_screen;
+    vector<Sphere> sphere_vec;
     vector<Light> light_vec;
 };
+
+ostream& operator<<(ostream& os, const G& g);
