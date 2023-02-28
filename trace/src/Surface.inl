@@ -10,11 +10,11 @@ using namespace::std;
 
 inline
 Surface::Surface()
-    : name(""), specpow(1.0), reflect(1.0) {}
+    : name(""), specpow(0), reflect(0) {}
 
 inline
 Surface::Surface(string name, Vec3 ambient, Vec3 diffuse, Vec3 specular,
-                 float specpow = 1.0, float reflect = 1.0)
+                 float specpow = 0, float reflect = 0)
     : name(name), ambient(ambient), diffuse(diffuse), specular(specular),
       specpow(specpow), reflect(reflect) {}
 

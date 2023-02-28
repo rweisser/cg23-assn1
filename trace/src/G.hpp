@@ -1,7 +1,6 @@
 #pragma once
 // G.cpp
 
-#include <unordered_map>
 #include <vector>
 
 #include "Light.hpp"
@@ -25,9 +24,7 @@ struct G
     Vec2 screen_size;
     int maxdepth;
     float cutoff;
-    unordered_map<string, Surface>* surface_map;
     vector<Sphere> sphere_vec;
     Screen look_screen;
-    Light amb_light;
     vector<Light> light_vec;
 };

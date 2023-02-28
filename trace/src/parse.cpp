@@ -12,29 +12,37 @@ using namespace std;
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "G.hpp"
 #include "Sphere.hpp"
 
 extern G g; // global shared data
 
+void   read_file();
 void   parse_vec2(Vec2 &v);
 void   parse_vec3(Vec3 &v);
 void   parse_sphere();
 void   parse_surface();
-void   read_file();
+void   parse_light();
+string next_token();
 
 static ifstream ray_file;
+unordered_map<string, Surface>* surface_map;
+string push_back = ""; // token pushed backed into input stream
 
 void parse_file(const string& file_name)
 {
     ray_file.open(file_name);
+    surface_map = new unordered_map<string, Surface>;
     if (!ray_file) {
         cerr << file_name << ": ";
         cerr << strerror(errno) << endl;
         exit(1);
     }
     read_file();                // process the file
+    delete surface_map;
     ray_file.close();
 }
 
@@ -43,10 +51,8 @@ void read_file()
     // read a keyword
     // ignore tokens we don't care about
     string token;
-    while (1) {
-        ray_file >> token;
-        if (ray_file.eof())
-            break;
+    token = next_token();
+    while (! ray_file.eof()) {
         if (token == "background")
             parse_vec3(g.background);
         else if (token == "eyep")
@@ -60,15 +66,22 @@ void read_file()
         else if (token == "screen")
             parse_vec2(g.screen_size);
         else if (token == "surface")
-             parse_surface();
+            parse_surface();
         else if (token == "sphere")
             parse_sphere();
+        else if (token == "maxdepth")
+            ray_file >> g.maxdepth;
+        else if (token == "cutoff")
+            ray_file >> g.cutoff;
+        else if (token == "light")
+            parse_light();
     }
     // If there are no light sources, add a default
     if (g.light_vec.empty()) {
         Light l(1, Vec3(1, -1, 1));
         g.light_vec.push_back(l);
     }
+    token = next_token();
 }
 
 // ===========================================================================
@@ -91,37 +104,35 @@ void parse_vec3(Vec3 &v) {
 
 void parse_surface()
 {
-    string name;
     string token;
     double r, x, y, z;
-    Vec3 ambient;
-    Vec3 diffuse;
-    Vec3 specular;
-    float specpow = -1;
-    float reflect = -1;
     Surface s;
 
-    ray_file >> name;
+    ray_file >> s.name;
     while (1) {
         ray_file >> token;
         if (token == "ambient") {
             ray_file >> x >> y >> z;
-            ambient = { x, y, z };
+            s.ambient = { x, y, z };
         }
         else if (token == "diffuse") {
             ray_file >> x >> y >> z;
-            diffuse = { x, y, z };
+            s.diffuse = { x, y, z };
+        }
+        else if (token == "specular") {
+            ray_file >> x >> y >> z;
+            s.specular = { x, y, z };
+        }
+        else if (token == "specpow")
+            ray_file >> s.specpow;
+        else if (token == "reflect")
+            ray_file >> s.reflect;
+        else {
+            push_back = token;
+            break;
         }
     }
-    s.name = name;
-    s.diffuse = diffuse;
-    s.ambient = ambient;
-    s.specular = specular;
-    if (specpow != -1)
-        s.specpow = specpow;
-    if (reflect != -1)
-        s.reflect = reflect;
-    g.surface_map->insert({ s.name, s });
+    surface_map->insert({ s.name, s });
 }
 
 void parse_sphere()
@@ -129,7 +140,31 @@ void parse_sphere()
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    Vec3 diffuse = (*g.surface_map)[surface_name].diffuse;
+    Vec3 diffuse = (*surface_map)[surface_name].diffuse;
     Sphere s(surface_name, radius, Vec3(x, y, z), diffuse);
     g.sphere_vec.push_back(s);
 }
+
+string next_token()
+{
+    string token;
+    if (push_back != "") {
+        token = push_back;
+        push_back = "";
+    }
+    ray_file >> token;
+    return token;
+}
+
+// All our light sources are points
+void parse_light()
+{
+    Light l;
+    string dummy;
+    double x, y, z;
+
+    ray_file >> l.intensity;
+    ray_file >> dummy;  // skip "point"
+    ray_file >> x >> y >> z;
+}
+

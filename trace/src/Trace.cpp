@@ -48,9 +48,7 @@ int main(int argc, char **argv)
 	char* file_name_arg = argv[1];
 	string file_name(PROJECT_DATA_DIR);
 	file_name += file_name_arg;
-	g.surface_map = new unordered_map<string, Surface>;
 	parse_file(file_name);
-	delete g.surface_map;
 	cout << "finished parsing input" << endl;
 	init_look_screen();
 
