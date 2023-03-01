@@ -18,6 +18,8 @@ using namespace std;
 #include "G.hpp"
 #include "Sphere.hpp"
 
+#include "tests.hpp" // XXX
+
 extern G g; // global shared data
 
 void   read_file();
@@ -27,10 +29,13 @@ void   parse_sphere();
 void   parse_surface();
 void   parse_light();
 string next_token();
+void   init_look_screen();
 
 static ifstream ray_file;
 unordered_map<string, Surface>* surface_map;
 string push_back = ""; // token pushed backed into input stream
+
+const double PI = 3.141592653589793;
 
 void parse_file(const string& file_name)
 {
@@ -42,8 +47,17 @@ void parse_file(const string& file_name)
         exit(1);
     }
     read_file();                // process the file
+    test_surfaces(*surface_map); // XXX
     delete surface_map;
     ray_file.close();
+
+    // If there are no light sources, add a default
+    if (g.light_vec.empty()) {
+        Light l(1, Vec3(1, -1, 1));
+        g.light_vec.push_back(l);
+    }
+
+    init_look_screen();
 }
 
 void read_file()
@@ -75,13 +89,8 @@ void read_file()
             ray_file >> g.cutoff;
         else if (token == "light")
             parse_light();
+        token = next_token();
     }
-    // If there are no light sources, add a default
-    if (g.light_vec.empty()) {
-        Light l(1, Vec3(1, -1, 1));
-        g.light_vec.push_back(l);
-    }
-    token = next_token();
 }
 
 // ===========================================================================
@@ -148,11 +157,12 @@ void parse_sphere()
 string next_token()
 {
     string token;
-    if (push_back != "") {
+    if (push_back == "")
+        ray_file >> token;
+    else {
         token = push_back;
         push_back = "";
     }
-    ray_file >> token;
     return token;
 }
 
@@ -166,5 +176,29 @@ void parse_light()
     ray_file >> l.intensity;
     ray_file >> dummy;  // skip "point"
     ray_file >> x >> y >> z;
+    l.pos = { x, y, z };
+    g.light_vec.push_back(l);
 }
 
+void init_look_screen() {
+    Vec3 wtemp = g.eyep - g.lookp;
+    double d = wtemp.mag();
+    g.look_screen.w = wtemp.normalize();
+    g.look_screen.u = g.up.cross(g.look_screen.w).normalize();
+    g.look_screen.v = g.look_screen.w.cross(g.look_screen.u);
+
+    // Horizontal fov
+    int degrees = g.fov.x;
+    double theta = degrees * PI / 180;
+    g.look_screen.right = d * tan(theta / 2);
+    g.look_screen.left = -g.look_screen.right;
+
+    // Vertical fov
+    degrees = g.fov.y;
+    theta = degrees * PI / 180;
+    g.look_screen.top = d * tan(theta / 2);
+    g.look_screen.bottom = -g.look_screen.top;
+
+    g.look_screen.pixelsh = g.screen_size.x;
+    g.look_screen.pixelsv = g.screen_size.y;
+}

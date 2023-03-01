@@ -24,4 +24,6 @@ struct Surface
             float specpow /* = 0 */, float reflect /* = 0 */);
 };
 
+ostream& operator<<(ostream& os, const Surface& s);
+
 #include "Surface.inl"

@@ -24,7 +24,15 @@ ostream& operator<<(ostream& os, const Surface& s)
     os << "Surface("
         << s.name
         << ","
+        << s.ambient
+        << ","
         << s.diffuse
+        << ","
+        << s.specular
+        << ","
+        << s.specpow
+        << ","
+        << s.reflect
         << ")";
     return os;
 }

@@ -20,16 +20,16 @@
 #include "Surface.hpp"
 #include "Vec3.hpp"
 
+#include "tests.hpp" // XXX
+
 using namespace std;
 
 G g; // Global shared data
 
 const char* usage = "Trace filename";
-const double PI = 3.141592653589793;
 
 Vec3 pixel_center(double d, int x, int y);
 void write_pixel(const Vec3& color);
-void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3& c);
 void ray_trace();
 void write_ppm_file_header();
@@ -50,7 +50,9 @@ int main(int argc, char **argv)
 	file_name += file_name_arg;
 	parse_file(file_name);
 	cout << "finished parsing input" << endl;
-	init_look_screen();
+
+	test_parse(); // XXX
+	return 0;
 
 	// open ppm output file in trace directory
 	string ppmname = std::string(PROJECT_BUILD_DIR) + "trace.ppm";
@@ -69,29 +71,6 @@ int main(int argc, char **argv)
     std::chrono::duration<float> elapsed = endTime - startTime;
     std::cout << elapsed.count() << " seconds\n";
     return 0;
-}
-
-void init_look_screen() {
-	Vec3 wtemp = g.eyep - g.lookp;
-	double d = wtemp.mag();
-	g.look_screen.w = wtemp.normalize();
-	g.look_screen.u = g.up.cross(g.look_screen.w).normalize();
-	g.look_screen.v = g.look_screen.w.cross(g.look_screen.u);
-
-	// Horizontal fov
-	int degrees = g.fov.x;
-	double theta = degrees * PI / 180;
-	g.look_screen.right = d * tan(theta / 2);
-	g.look_screen.left = -g.look_screen.right;
-	
-	// Vertical fov
-	degrees = g.fov.y;
-	theta = degrees * PI / 180;
-	g.look_screen.top = d * tan(theta / 2);
-	g.look_screen.bottom = -g.look_screen.top;
-
-	g.look_screen.pixelsh = g.screen_size.x;
-	g.look_screen.pixelsv = g.screen_size.y;
 }
 
 // returns center of the pixel at (x, y).
