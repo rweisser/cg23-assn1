@@ -115,7 +115,7 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 		dist = t1 > 0 ? t1 : t2;
 		if (dist < closest) {
 			closest = dist;
-			color = s.color;
+			color = s.diffuse;
 		}
 	}
 	return closest == DBL_MAX ? -1 : closest;

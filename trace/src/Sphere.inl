@@ -11,19 +11,11 @@ using namespace::std;
 #include "Sphere.hpp"
 
 inline
-Sphere::Sphere(string surface_name, double radius, Vec3 center, Vec3 color)
-    : surface_name(surface_name), radius(radius), center(center), color(color) {}
+Sphere::Sphere(double radius, Vec3 center,
+               Vec3 ambient, Vec3 diffuse, Vec3 specular,
+               float specpow, float reflect)
+    : radius(radius), center(center),
+      ambient(ambient), diffuse(diffuse), specular(specular),
+      specpow(specpow), reflect(reflect)
+    {}
 
-inline
-ostream& operator<<(ostream& os, const Sphere& s)
-{
-    os << "Sphere("
-        << s.surface_name
-        << ","
-        << s.radius
-        << ","
-        << s.center
-        << ","
-        << s.color << ")";
-    return os;
-}

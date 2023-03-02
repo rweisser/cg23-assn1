@@ -40,9 +40,13 @@ ostream& operator<<(ostream& os, const G& g)
     cout << "max_depth: " << g.maxdepth << endl;
     cout << "cutoff: " << g.cutoff << endl;
     cout << "look_screen: " << g.look_screen << endl;
-    cout << endl;
-    for_each(g.sphere_vec.cbegin(), g.sphere_vec.cend(), [](const Sphere& s) { cout << s << endl; });
-    cout << endl;
+    int i = 1;
+    cout << "Spheres:" << endl;
+    for (vector<Sphere>::const_iterator s_iter = g.sphere_vec.cbegin();
+            s_iter != g.sphere_vec.cend();
+            s_iter++, i++)
+        cout << i << ": " << *s_iter << endl;
+    cout << "Lights:" << endl;
     for_each(g.light_vec.cbegin(), g.light_vec.cend(), [](const Light& l) { cout << l << endl; });
 
     return os;

@@ -46,7 +46,7 @@ void parse_file(const string& file_name)
         cerr << strerror(errno) << endl;
         exit(1);
     }
-    read_file();                // process the file
+    read_file(); // process the file
     test_surfaces(*surface_map); // XXX
     delete surface_map;
     ray_file.close();
@@ -149,8 +149,12 @@ void parse_sphere()
     string surface_name;
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
-    Vec3 diffuse = (*surface_map)[surface_name].diffuse;
-    Sphere s(surface_name, radius, Vec3(x, y, z), diffuse);
+    Vec3  ambient  = (*surface_map)[surface_name].ambient;
+    Vec3  diffuse  = (*surface_map)[surface_name].diffuse;
+    Vec3  specular = (*surface_map)[surface_name].specular;
+    float specpow  = (*surface_map)[surface_name].specpow; 
+    float reflect  = (*surface_map)[surface_name].reflect;  
+    Sphere s(radius, Vec3(x, y, z), ambient, diffuse, specular, specpow, reflect);
     g.sphere_vec.push_back(s);
 }
 
