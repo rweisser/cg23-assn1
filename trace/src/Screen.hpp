@@ -36,13 +36,13 @@ inline
 ostream& operator<<(ostream& os, const Screen& s)
 {
     os << "Screen(" << endl
-        << "u = " << s.u << "," << endl
-        << "v = " << s.v << "," << endl
-        << "w = " << s.w << "," << endl
-        << "lp = " << s.lp << "," << endl
-        << "left = " << s.left << ", right = " << s.right << "," << endl
-        << "top = " << s.top << ", bottom = " << s.bottom << "," << endl
-        << "pixelsh = " << s.pixelsh << ", pixelsv = " << s.pixelsv
-        << ")" << endl;
+       << "    " << "u = " << s.u << "," << endl
+       << "    " << "v = " << s.v << "," << endl
+       << "    " << "w = " << s.w << "," << endl
+       << "    " << "lp = " << s.lp << "," << endl
+       << "    " << "left = " << s.left << ", right = " << s.right << "," << endl
+       << "    " << "top = " << s.top << ", bottom = " << s.bottom << "," << endl
+       << "    " << "pixelsh = " << s.pixelsh << ", pixelsv = " << s.pixelsv
+       << ")";
     return os;
 }
