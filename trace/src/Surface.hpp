@@ -13,17 +13,10 @@ using namespace::std;
 struct Surface
 {
     string name;
-    Vec3 ambient;
-    Vec3 diffuse;
-    Vec3 specular;
-    float specpow;
-    float reflect;
+    Vec3 color;
 
     Surface();
-    Surface(string name, Vec3 ambient, Vec3 diffuse, Vec3 specular,
-            float specpow /* = 0 */, float reflect /* = 0 */);
+    Surface(string name, Vec3 color);
 };
-
-ostream& operator<<(ostream& os, const Surface& s);
 
 #include "Surface.inl"

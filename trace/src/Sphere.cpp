@@ -25,29 +25,3 @@ bool Sphere::intersect(const Vec3& e, const Vec3& d, double& t1, double& t2) con
     t2 = ((-d).dot(g) + sqrt(discriminant)) / d.dot(d);
     return true;
 }
-
-string Sphere::str() const
-{
-    ostringstream oss;
-    oss << "Sphere("
-        << radius
-        << ","
-        << center
-        << ","
-        << "ambient=" << ambient
-        << ","
-        << "diffuse=" << diffuse
-        << ","
-        << "specular=" << specular
-        << ","
-        << "specpow=" << specpow
-        << ","
-        << "reflect=" << reflect << ")";
-    return oss.str();
-}
-
-ostream& operator<<(ostream& os, const Sphere& s)
-{
-    os << s.str();
-    return os;
-}
