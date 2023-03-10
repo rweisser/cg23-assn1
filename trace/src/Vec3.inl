@@ -181,6 +181,8 @@ Vec3 operator*(double k, const Vec3& v)
 inline
 Vec3 operator/(const Vec3& v, double k)
 {
+	if (k == 0)
+		throw invalid_argument("zero scalar divisor");
 	return v * (1 / k);
 }
 

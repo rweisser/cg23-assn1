@@ -29,7 +29,7 @@ using namespace std;
 const char* usage = "Trace filename";
 const double PI = 3.141592653589793;
 
-inline Vec3 pixel_center(double d, int x, int y);
+Vec3 pixel_center(double d, int x, int y);
 void inline write_pixel(const Vec3& color);
 void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3& c);
