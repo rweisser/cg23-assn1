@@ -1,0 +1,6 @@
+To Do
+
+        Object class
+        A class for global data
+        Sphere subclass
+        Rectangle subclass
