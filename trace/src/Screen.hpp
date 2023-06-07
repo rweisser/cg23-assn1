@@ -4,7 +4,7 @@
 // Screen.hpp
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include <ostream>
 

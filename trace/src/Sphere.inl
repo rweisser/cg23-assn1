@@ -4,7 +4,7 @@
 // Sphere.inl
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include "shared_data.hpp"
 #include "Surface.hpp"

@@ -2,7 +2,7 @@
 // Sphere.cpp
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include "Sphere.hpp"
 

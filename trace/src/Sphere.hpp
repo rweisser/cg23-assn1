@@ -4,7 +4,7 @@
 // Sphere.hpp
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include "Vec3.hpp"
 

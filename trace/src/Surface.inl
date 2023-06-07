@@ -4,7 +4,7 @@
 // Surface.inl
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include "Vec3.hpp"
 

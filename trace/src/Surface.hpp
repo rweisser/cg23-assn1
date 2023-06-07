@@ -4,7 +4,7 @@
 // Surface.hpp
 // ===========================================================================
 
-using namespace::std;
+using namespace std;
 
 #include <string>
 
