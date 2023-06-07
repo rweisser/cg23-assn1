@@ -24,15 +24,6 @@
  * ostream& operator<<(ostream& os, const G& g);
  */
 
-// Construct the global data with default values
-G::G()
-    : background(1, 1, 1),
-      eyep(0, -8, 0),
-      lookp(0 ,0 ,0),
-      up(0, 1, 0),
-      screen_size(512, 512)
-    {}
-
 string G::str() const
 {
     ostringstream oss;
@@ -50,6 +41,7 @@ string G::str() const
          s_iter != sphere_vec.cend();
          s_iter++, i++)
         oss << i << ": " << *s_iter << endl;
+
     return oss.str();
 }
 

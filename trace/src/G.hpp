@@ -11,6 +11,8 @@
 #include "Vec2.hpp"
 #include "Vec3.hpp"
 
+using namespace std;
+
 
 // A struct to hold global data.  There will be one instance of this
 // created in Trace.cpp.
@@ -25,7 +27,6 @@ struct G
     Screen look_screen;
     vector<Sphere> sphere_vec;
 
-    G();
     string str() const;
 };
 

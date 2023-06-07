@@ -5,24 +5,26 @@
 #include "algorithm"
 #include <iostream>
 
-#include "shared_data.hpp"
+#include "G.hpp"
 
 Vec3 pixel_center(double d, int x, int y);
 
-void test_parse()
+void test_parse(G g)
 {
-	cout << "background: " << background << endl;
-	cout << "eyep: " << eyep << endl;
-	cout << "lookp: " << lookp << endl;
-	cout << "up: " << up << endl;
-	cout << "fov: " << fov << endl;
-	cout << "screen_size: " << screen_size << endl;
+	cout << "g.background: " << g.background << endl;
+	cout << "g.eyep: " << g.eyep << endl;
+	cout << "g.lookp: " << g.lookp << endl;
+	cout << "g.up: " << g.up << endl;
+	cout << "g.fov: " << g.fov << endl;
+	cout << "g.screen_size: " << g.screen_size << endl;
 	// cout << endl;
 	// for (auto iter = surface_map->cbegin(); iter != surface_map->cend(); iter++) {
 	//	 cout << iter->first << " -> " << iter->second << endl;
 	// }
 	cout << endl;
-	for_each(sphere_vec.cbegin(), sphere_vec.cend(), [](const Sphere& s) { cout << s << endl; });
+	for_each(g.sphere_vec.cbegin(),
+		     g.sphere_vec.cend(),
+		     [](const Sphere& s) { cout << s << endl; });
 }
 
 void test_intersect2(Vec3& e, Vec3& d, Sphere& s)
@@ -103,12 +105,12 @@ void test_pixel_center2(double d, int x, int y)
 	cout << x << " " << y << " -> " << pixel_center(d, x, y) << endl;
 }
 
-void test_pixel_center()
+void test_pixel_center(G g)
 {
-	double d = (eyep - lookp).mag();
-	cout << "eyep.mag() = " << eyep.mag() << endl;
+	double d = (g.eyep - g.lookp).mag();
+	cout << "g.eyep.mag() = " << g.eyep.mag() << endl;
 	cout << "d = " << d << endl;
-	cout << "eyep - d * w = " << eyep - d * look_screen.w << endl;
+	cout << "g.eyep - d * w = " << g.eyep - d * g.look_screen.w << endl;
 	test_pixel_center2(d, 0, 0);
 	test_pixel_center2(d, 511, 0);
 	test_pixel_center2(d, 0, 511);

@@ -5,7 +5,7 @@
 // 
 // Functions to parse the input file into global variables.
 // ===========================================================================
-
+/*
 using namespace std;
 
 #include <cerrno>
@@ -109,3 +109,4 @@ void parse_sphere()
     Sphere s(surface_name, radius, Vec3(x, y, z), color);
     sphere_vec.push_back(s);
 }
+*/
