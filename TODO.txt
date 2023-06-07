@@ -4,3 +4,4 @@ To Do
         A class for global data
         Sphere subclass
         Rectangle subclass
+        Make parse.cpp into an object, pass G into it.
