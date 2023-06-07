@@ -15,10 +15,10 @@ using namespace std;
 #include <unordered_map>
 
 #include "Globals.hpp"
+#include "Surface.hpp"
 
 class Parser
 {
-    string   file_name;   // name of ray trace file
     ifstream ray_file;    // ray trace file
     unordered_map<string, Surface> surface_map;
 

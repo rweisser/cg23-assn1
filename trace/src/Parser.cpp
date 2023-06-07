@@ -6,7 +6,6 @@
 
 using namespace std;
 
-#include "Globals.hpp"
 #include "Parser.hpp"
 
 extern Globals g;

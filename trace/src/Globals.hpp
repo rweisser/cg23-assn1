@@ -7,7 +7,6 @@
 
 #include "Screen.hpp"
 #include "Sphere.hpp"
-#include "Surface.hpp"
 #include "Vec2.hpp"
 #include "Vec3.hpp"
 
