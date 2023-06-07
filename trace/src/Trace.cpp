@@ -19,7 +19,6 @@
 #include "Sphere.hpp"
 #include "Surface.hpp"
 #include "Vec3.hpp"
-#include "parse.hpp"
 
 using namespace std;
 
