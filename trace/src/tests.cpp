@@ -49,43 +49,43 @@ void test_intersect()
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 1, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+		Sphere(1, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 3, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+		Sphere(3, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 0),  // e
 		Vec3(1, 0, 0),  // d
-		Sphere("sph001", 5, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
+		Sphere(5, Vec3(4, 1, 0), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", sqrt(3), Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
+		Sphere(sqrt(3), Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
+		Sphere(0.5, Vec3(3, 3, 3), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(20, 20, 20), Vec3(0, 0, 0)) // s
+		Sphere(0.5, Vec3(20, 20, 20), Vec3(0, 0, 0)) // s
 	);
 
 	test_intersect2(
 		Vec3(1, 1, 1),  // e
 		Vec3(2, 2, 2),  // d
-		Sphere("sph001", 0.5, Vec3(20, 0, 0), Vec3(0, 0, 0)) // s
+		Sphere(0.5, Vec3(20, 0, 0), Vec3(0, 0, 0)) // s
 	);
 }
 
