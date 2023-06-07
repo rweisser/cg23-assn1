@@ -1,16 +1,16 @@
-==============================================================================
-3/11/2023 3:37:33 PM
-==============================================================================
+Assignment One for Computer Graphics (CMSC 435 at UMBC)
 
-This directory contains the code for assignment 1.  I created an
-assignment-1 branch for possible future work on assignment 1, which
-has already been submitted (and graded).
+The task for this assignment was to render an image, using ray
+casting, from an input file in rayshade format.  The class is over and
+the project has already been graded.  In this repository, I am doing
+addtitional work on it.  The main program is Trace.cpp.  The output
+file is a .ppm file.
 
-NOTE
-NOTE The assignment-1 branch should never be merged into main.
-NOTE
+There is no real ray tracing in this assignment, only ray casting.
+Ray tracing is implemented in Assignment Two.
 
-I think it is okay to push the branch to github, although I haven't
-done it yet.
+I plan to do the following:
 
-To rerun cmake
+Make the project more object-oriented.
+
+Do some or all of the extra-credit.
