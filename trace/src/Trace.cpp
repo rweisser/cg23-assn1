@@ -34,13 +34,13 @@ void ray_trace();
 void inline write_pixel(const Vec3& color);
 void write_ppm_file_header();
 
+G g; // global data
+
 static ofstream ppmfile;
 
 int main(int argc, char **argv)
 {
-    G g; // Global data
-	
-		 // platform-independent timing
+	// platform-independent timing
 	auto startTime = std::chrono::high_resolution_clock::now();
 	
 	if (argc != 2) {
@@ -88,7 +88,7 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void init_look_screen(G g) {
+void init_look_screen() {
 	Vec3 wtemp = g.eyep - g.lookp;
 	double d = wtemp.mag();
 	g.look_screen.w = wtemp.normalize();
@@ -115,7 +115,7 @@ void init_look_screen(G g) {
 // d is the distance from eyep to lookp.
 // x and y are the screen coordinates.
 // inline             // XXX change back to inline
-Vec3 pixel_center(G g, double d, int x, int y)
+Vec3 pixel_center(double d, int x, int y)
 {
 	double left     = g.look_screen.left;
 	double right    = g.look_screen.right;
@@ -135,7 +135,7 @@ Vec3 pixel_center(G g, double d, int x, int y)
 // of d.  The return value is the distance factor closest.  The color of the
 // object is returned in color.  If no object is intersected, find_closest
 // returns a negative value and leaves color unchanged.
-double find_closest(G g, const Vec3& e, const Vec3& pc, Vec3 &color)
+double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 {
 	double closest   = DBL_MAX;
 	double t1        = DBL_MAX;
@@ -156,7 +156,7 @@ double find_closest(G g, const Vec3& e, const Vec3& pc, Vec3 &color)
 	return closest == DBL_MAX ? -1 : closest;
 }
 
-void ray_trace(G g)
+void ray_trace()
 {
 	Vec3 pc;         // pixel center
 	double t = 0;    // distance factor of closest object, if exists
@@ -187,6 +187,6 @@ void inline write_pixel(const Vec3& color)
 	ppmfile.write((char *) &c, sizeof c);
 }
 
-void write_ppm_file_header(G g) {
+void write_ppm_file_header() {
 	ppmfile << "P6\n" << g.screen_size.x << " " << g.screen_size.y << "\n255\n";
 }

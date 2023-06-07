@@ -7,9 +7,11 @@
 
 #include "G.hpp"
 
+extern G g; // globals
+
 Vec3 pixel_center(double d, int x, int y);
 
-void test_parse(G g)
+void test_parse()
 {
 	cout << "g.background: " << g.background << endl;
 	cout << "g.eyep: " << g.eyep << endl;
@@ -105,7 +107,7 @@ void test_pixel_center2(double d, int x, int y)
 	cout << x << " " << y << " -> " << pixel_center(d, x, y) << endl;
 }
 
-void test_pixel_center(G g)
+void test_pixel_center()
 {
 	double d = (g.eyep - g.lookp).mag();
 	cout << "g.eyep.mag() = " << g.eyep.mag() << endl;
