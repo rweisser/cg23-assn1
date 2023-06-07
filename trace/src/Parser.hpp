@@ -13,11 +13,10 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-#include "G.hpp"
+#include "Globals.hpp"
 
 class Parser
 {
-    G&       g;           // global vars
     string   file_name;   // name of ray trace file
     ifstream ray_file;    // ray trace file
     unordered_map<string, Surface> surface_map;
@@ -29,7 +28,6 @@ class Parser
     void read_file();
 
 public:
-    Parser(G g);
 
     // Parse the ray trace file into variables in g, which
     // contains global variables.  Since g is a reference, the

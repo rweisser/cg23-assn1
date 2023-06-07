@@ -6,14 +6,14 @@
 
 using namespace std;
 
-#include "G.hpp"
+#include "Globals.hpp"
 #include "Parser.hpp"
+
+extern Globals g;
 
 // ===========================================================================
 // Public member functions
 // ===========================================================================
-
-Parser::Parser(G g) : g(g) {}
 
 void Parser::parse_file(const string& file_name)
 {

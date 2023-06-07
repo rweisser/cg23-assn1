@@ -1,13 +1,13 @@
-// G.cpp
+// Globals.cpp
 
 // Global data
 
-#include "G.hpp"
+#include "Globals.hpp"
 
 /*
  * A struct to hold global data.  There will be one instance of this
  * created in Trace.cpp.
- * struct G
+ * struct Globals
  * {
  *     Vec3 background;  // bg color
  *     Vec3 eyep;
@@ -24,7 +24,7 @@
  * ostream& operator<<(ostream& os, const G& g);
  */
 
-string G::str() const
+string Globals::str() const
 {
     ostringstream oss;
     oss << "background: "  << background  << endl;
@@ -45,7 +45,7 @@ string G::str() const
     return oss.str();
 }
 
-ostream& operator<<(ostream& os, const G& g)
+ostream& operator<<(ostream& os, const Globals& g)
 {
     os << g.str();
     return os;

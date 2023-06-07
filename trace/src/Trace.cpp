@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "G.hpp"
+#include "Globals.hpp"
 #include "Parser.hpp"
 #include "Sphere.hpp"
 #include "Surface.hpp"
@@ -34,7 +34,7 @@ void ray_trace();
 void inline write_pixel(const Vec3& color);
 void write_ppm_file_header();
 
-G g; // global data
+Globals g; // global data
 
 static ofstream ppmfile;
 
@@ -51,13 +51,9 @@ int main(int argc, char **argv)
 	string file_name(PROJECT_DATA_DIR);
 	file_name += file_name_arg;
 
-	Parser* parser = new Parser(g);
+	Parser* parser = new Parser();
 	parser->parse_file(file_name);
 	delete parser;
-
-	cout << "finished parsing input" << endl;
-	cout << g << endl;
-	exit(0);
 
 	init_look_screen();
 

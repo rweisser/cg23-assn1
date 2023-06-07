@@ -5,9 +5,9 @@
 #include "algorithm"
 #include <iostream>
 
-#include "G.hpp"
+#include "Globals.hpp"
 
-extern G g; // globals
+extern Globals g; // globals
 
 Vec3 pixel_center(double d, int x, int y);
 

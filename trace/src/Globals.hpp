@@ -1,6 +1,6 @@
 #pragma once
 
-// G.hpp
+// Globals.hpp
 
 #include <iostream>
 #include <vector>
@@ -16,7 +16,7 @@ using namespace std;
 
 // A struct to hold global data.  There will be one instance of this
 // created in Trace.cpp.
-struct G
+struct Globals
 {
     Vec3 background;  // bg color
     Vec3 eyep;
@@ -30,4 +30,4 @@ struct G
     string str() const;
 };
 
-ostream& operator<<(ostream& os, const G& g);
+ostream& operator<<(ostream& os, const Globals& g);
