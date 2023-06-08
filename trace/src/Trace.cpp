@@ -109,7 +109,6 @@ void init_look_screen() {
 // returns center of the pixel at (x, y).
 // d is the distance from eyep to lookp.
 // x and y are the screen coordinates.
-// inline             // XXX change back to inline
 Vec3 pixel_center(double d, int x, int y)
 {
 	double left     = g.look_screen.left;
@@ -136,7 +135,7 @@ double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 	double t1        = DBL_MAX;
 	double t2        = DBL_MAX;
 	double dist      = 0;
-	for (Sphere s : g.sphere_vec) {
+	for (const Sphere& s : g.sphere_vec) {
 		bool found_intersection = s.intersect(e, pc, t1, t2);
 		if (!found_intersection)
 			continue;
