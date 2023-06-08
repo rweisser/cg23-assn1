@@ -13,11 +13,8 @@
 using namespace std;
 
 #include <cmath>
-#include <iostream>
 #include <stdexcept>
-#include <string>
 #include <sstream>
-#include <tuple>
 
 inline
 Vec3::Vec3() : x(0), y(0), z(0) {}

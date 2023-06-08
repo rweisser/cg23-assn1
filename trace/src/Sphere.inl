@@ -6,9 +6,6 @@
 
 using namespace std;
 
-#include "Vec3.hpp"
-#include "Sphere.hpp"
-
 inline
 Sphere::Sphere(double radius, Vec3 center, Vec3 color)
     : radius(radius), center(center), color(color) {}

@@ -10,10 +10,7 @@
 using namespace std;
 
 #include <cmath>
-#include <iostream>
-#include <utility>
 #include <stdexcept>
-#include <string>
 #include <sstream>
 
 inline

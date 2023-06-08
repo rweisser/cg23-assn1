@@ -6,8 +6,6 @@
 
 using namespace std;
 
-#include "Vec3.hpp"
-
 inline
 Surface::Surface()
     : name(""), color(Vec3::Vec3_ZERO) {}
