@@ -20,7 +20,7 @@ struct Vec3
 {
 	double x, y, z;
 
-	static const Vec3 Vec3_ZERO;        // zero vector
+	static const Vec3 Vec3_ZERO;        // Vec3(0, 0, 0)
 	static const double TOLERANCE;      // tolerance for equality (= 0.0001)
 
 	Vec3();
