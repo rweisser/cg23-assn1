@@ -19,6 +19,7 @@ using namespace std;
 
 class Parser
 {
+    Globals& g;           // initialized from ray trace file
     ifstream ray_file;    // ray trace file
     unordered_map<string, Surface> surface_map;
 
@@ -29,6 +30,7 @@ class Parser
     void read_file();
 
 public:
+    Parser(Globals& g) : g(g) {}
 
     // Parse the ray trace file into variables in g, which
     // contains global variables.  Since g is a reference, the

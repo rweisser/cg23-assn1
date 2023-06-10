@@ -8,8 +8,6 @@ using namespace std;
 
 #include "Parser.hpp"
 
-extern Globals g;
-
 // ===========================================================================
 // Public member functions
 // ===========================================================================
@@ -24,6 +22,8 @@ void Parser::parse_file(const string& file_name)
     }
     read_file();                // process the file
     ray_file.close();
+    g.look_screen.init(g);      // g.look_screen needs the info in g to
+                                // initialize itself.
 }
 
 // ===========================================================================

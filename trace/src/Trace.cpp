@@ -2,18 +2,10 @@
 // Trace.cpp
 // ===========================================================================
 
+#include <chrono>
+
 #include "Color.hpp"
 #include "Config.h"
-
-#include <algorithm>
-#include <chrono>
-#include <cstdint>
-#include <float.h>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "Globals.hpp"
 #include "Parser.hpp"
 #include "Sphere.hpp"
@@ -23,11 +15,8 @@
 using namespace std;
 
 const char* usage = "Trace filename";
-const double PI = 3.141592653589793;
 
-Vec3 pixel_center(double d, int x, int y);
 void inline write_pixel(const Vec3& color);
-void init_look_screen();
 double find_closest(const Vec3& e, const Vec3& d, Vec3& c);
 void ray_trace();
 void inline write_pixel(const Vec3& color);
@@ -50,11 +39,9 @@ int main(int argc, char **argv)
 	string file_name(PROJECT_DATA_DIR);
 	file_name += file_name_arg;
 
-	Parser* parser = new Parser();
+	Parser* parser = new Parser(g);
 	parser->parse_file(file_name);
 	delete parser;
-
-	init_look_screen();
 
 	// open ppm output file in trace directory
 	string ppmname = std::string(PROJECT_BUILD_DIR) + "trace.ppm";
@@ -81,48 +68,6 @@ int main(int argc, char **argv)
     std::chrono::duration<float> elapsed = endTime - startTime;
     std::cout << elapsed.count() << " seconds\n";
     return 0;
-}
-
-void init_look_screen() {
-	Vec3 wtemp = g.eyep - g.lookp;
-	double d = wtemp.mag();
-	g.look_screen.w = wtemp.normalize();
-	g.look_screen.u = g.up.cross(g.look_screen.w).normalize();
-	g.look_screen.v = g.look_screen.w.cross(g.look_screen.u);
-
-	// Horizontal fov
-	int degrees = g.fov.x;
-	double theta = degrees * PI / 180;
-	g.look_screen.right = d * tan(theta / 2);
-	g.look_screen.left = -g.look_screen.right;
-	
-	// Vertical fov
-	degrees = g.fov.y;
-	theta = degrees * PI / 180;
-	g.look_screen.top = d * tan(theta / 2);
-	g.look_screen.bottom = -g.look_screen.top;
-
-	g.look_screen.pixelsh = g.screen_size.x;
-	g.look_screen.pixelsv = g.screen_size.y;
-}
-
-// returns center of the pixel at (x, y).
-// d is the distance from eyep to lookp.
-// x and y are the screen coordinates.
-Vec3 pixel_center(double d, int x, int y)
-{
-	double left     = g.look_screen.left;
-	double right    = g.look_screen.right;
-	double top      = g.look_screen.top;
-	double bottom   = g.look_screen.bottom;
-	double pixelsh  = g.look_screen.pixelsh;
-	double pixelsy  = g.look_screen.pixelsv;
-	double screen_u = left + (right - left) * (x + 0.5) / pixelsh;
-	double screen_v = top + (bottom - top)  * (y + 0.5) / pixelsy;
-
-	return g.eyep - d * g.look_screen.w
-	  	   + screen_u * g.look_screen.u
-	       + screen_v * g.look_screen.v;
 }
 
 // Finds the closest object intersected by the ray from e in the direction
@@ -161,7 +106,7 @@ void ray_trace()
 		if (y % 100 == 0 && y > 0)
 			cout << y << " rows traced" << endl;
 		for (int x = 0; x < g.screen_size.x; x++) {
-			pc = pixel_center(d, x, y);
+			pc = g.look_screen.pixel_center(g.eyep, d, x, y);
 			t = find_closest(g.eyep, pc - g.eyep, color);
 			if (t <= 0)
 				write_pixel(g.background);

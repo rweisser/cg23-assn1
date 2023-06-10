@@ -1,8 +1,11 @@
 // Globals.cpp
 
 // Global data
-
+ 
 #include "Globals.hpp"
+#include "Screen.hpp"
+
+struct Screen;
 
 /*
  * A struct to hold global data.  There will be one instance of this
@@ -23,6 +26,8 @@
  * 
  * ostream& operator<<(ostream& os, const G& g);
  */
+
+const double Globals::PI = 3.141592653589793;
 
 string Globals::str() const
 {

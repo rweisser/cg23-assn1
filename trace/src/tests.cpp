@@ -9,8 +9,6 @@
 
 extern Globals g; // globals
 
-Vec3 pixel_center(double d, int x, int y);
-
 void test_parse()
 {
 	cout << "g.background: " << g.background << endl;
@@ -104,7 +102,7 @@ void test_cross()
 
 void test_pixel_center2(double d, int x, int y)
 {
-	cout << x << " " << y << " -> " << pixel_center(d, x, y) << endl;
+	cout << x << " " << y << " -> " << g.look_screen.pixel_center(g.eyep, d, x, y) << endl;
 }
 
 void test_pixel_center()
