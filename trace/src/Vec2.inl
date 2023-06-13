@@ -14,17 +14,33 @@ using namespace std;
 #include <sstream>
 
 inline
-Vec2::Vec2() : x(0), y(0) {}
+Vec2::Vec2() : x(0), y(0)
+{
+	/* empty */
+}
+
 
 inline
-Vec2::Vec2(double x, double y) : x(x), y(y) {}
+Vec2::Vec2(double x, double y) : x(x), y(y)
+{
+	/* empty */
+}
+
 
 inline
-Vec2::Vec2(const Vec2& v) : x(v.x), y(v.y) {}
+Vec2::Vec2(const Vec2& v) : x(v.x), y(v.y)
+{
+	/* empty */
+}
+
 
 template<class T1, class T2>
 Vec2::Vec2(const pair<T1, T2>& p)
-	: x(p.first), y(p.second) {}
+	: x(p.first), y(p.second)
+{
+	/* empty */
+}
+
 
 inline
 Vec2& Vec2::operator=(const Vec2& v)

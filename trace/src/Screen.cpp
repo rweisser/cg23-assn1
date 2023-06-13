@@ -14,7 +14,9 @@ Screen::Screen()
 	  bottom(0), 
 	  pixelsh(0),
 	  pixelsv(0)
-    { }
+{
+	/* empty */
+}
 
 void Screen::init(const Globals& g)
 {

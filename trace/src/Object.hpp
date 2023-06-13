@@ -18,5 +18,5 @@ struct Object
 
     Vec3 color;
 
-    virtual double intersect(Ray r) = 0;
+    virtual double intersect(Ray ray) = 0;
 };

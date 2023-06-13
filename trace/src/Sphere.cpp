@@ -6,6 +6,12 @@ using namespace std;
 
 #include "Sphere.hpp"
 
+Sphere::Sphere(double radius, Vec3 center, Vec3 color)
+    : Object(color), radius(radius), center(center)
+{
+    /* empty */
+}
+
 // ===========================================================================
 // Sphere::intersect
 // 
