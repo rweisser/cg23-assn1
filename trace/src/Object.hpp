@@ -11,12 +11,12 @@
 
 struct Object
 {
-    Vec3 color;
-
-    Object(Vec3 color) : color(color) {}
+    Object(Vec3 color);
     Object(const Object& o) = delete;
     Vec3& operator=(const Object& o) = delete;
-    virtual ~Object() {};
+    virtual ~Object();
+
+    Vec3 color;
 
     virtual double intersect(Ray r) = 0;
 };
