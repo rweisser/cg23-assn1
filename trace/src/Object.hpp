@@ -3,20 +3,19 @@
 // Object.hpp
 
 // ===========================================================================
-// Base class for screen objects
+// Abstract base class for screen objects
 // ===========================================================================
 
-#include "Ray.hpp"
 #include "Vec3.hpp"
+
+class Ray;
 
 struct Object
 {
-    Object(Vec3 color);
-    Object(const Object& o) = delete;
-    Vec3& operator=(const Object& o) = delete;
-    virtual ~Object();
-
     Vec3 color;
 
-    virtual double intersect(Ray ray) = 0;
+    Object(Vec3 color = Vec3::Vec3_ZERO);
+    virtual ~Object() = 0;
+
+    virtual double intersect(const Ray& ray) = 0;
 };

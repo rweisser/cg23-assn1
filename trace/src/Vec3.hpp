@@ -56,8 +56,6 @@ Vec3 operator-(Vec3 v1, const Vec3& v2);         // vector substraction
 Vec3 operator*(double k, const Vec3& v);         // scalar multiplication
 Vec3 operator/(const Vec3& v, double k);         // scalar division
 ostream& operator<<(ostream& os, const Vec3& v); // output as string
-string ToString(const Vec3& v);                  // stringify (for test
-                                                 //  framework)
 
 // ===========================================================================
 // Include the implementation of the online and template functions.

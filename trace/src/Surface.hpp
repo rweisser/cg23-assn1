@@ -19,4 +19,6 @@ struct Surface
     Surface(string name, Vec3 color);
 };
 
+ostream& operator<<(ostream& os, const Surface& s);
+
 #include "Surface.inl"

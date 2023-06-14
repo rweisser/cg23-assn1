@@ -189,9 +189,3 @@ ostream& operator<<(ostream& os, const Vec3& v)
 	os << v.str();
 	return os;
 }
-
-inline
-string ToString(const Vec3& v)
-{
-	return v.str();
-}

@@ -12,6 +12,11 @@ Sphere::Sphere(double radius, Vec3 center, Vec3 color)
     /* empty */
 }
 
+Sphere::~Sphere()
+{
+    /* empty */
+}
+
 // ===========================================================================
 // Sphere::intersect
 // 
@@ -31,3 +36,5 @@ bool Sphere::intersect(const Vec3& e, const Vec3& d, double& t1, double& t2) con
     t2 = ((-d).dot(g) + sqrt(discriminant)) / d.dot(d);
     return true;
 }
+
+double Sphere::intersect(const Ray& ray) { return 0; }
