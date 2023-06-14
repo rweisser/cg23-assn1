@@ -76,9 +76,9 @@ int main(int argc, char **argv)
 // returns a negative value and leaves color unchanged.
 double find_closest(const Vec3& e, const Vec3& pc, Vec3 &color)
 {
-	double closest   = DBL_MAX;
-	double t1        = DBL_MAX;
-	double t2        = DBL_MAX;
+	double closest   = INFINITY;
+	double t1        = INFINITY;
+	double t2        = INFINITY;
 	double dist      = 0;
 	for (const Sphere& s : g.sphere_vec) {
 		bool found_intersection = s.intersect(e, pc, t1, t2);
