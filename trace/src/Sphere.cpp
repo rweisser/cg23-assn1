@@ -8,14 +8,9 @@ using namespace std;
 
 Sphere::Sphere(double radius, Vec3 center, Vec3 color)
     : Object(color), radius(radius), center(center)
-{
-    /* empty */
-}
+{}
 
-Sphere::~Sphere()
-{
-    /* empty */
-}
+Sphere::~Sphere() {}
 
 // ===========================================================================
 // Sphere::intersect

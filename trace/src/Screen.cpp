@@ -8,15 +8,13 @@
 // The initialization of the one and only screen object is
 // in the init function.
 Screen::Screen()
-    : left(0), 
-	  right(0),
-	  top(0), 
-	  bottom(0), 
-	  pixelsh(0),
-	  pixelsv(0)
-{
-	/* empty */
-}
+	: left(0),
+	right(0),
+	top(0),
+	bottom(0),
+	pixelsh(0),
+	pixelsv(0)
+{}
 
 void Screen::init(const Globals& g)
 {
