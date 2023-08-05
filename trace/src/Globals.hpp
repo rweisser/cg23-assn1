@@ -27,7 +27,7 @@ struct Globals
     Vec2 fov;
     Vec2 screen_size;
     Screen look_screen;
-    vector<Sphere> sphere_vec;
+    vector<Object*> object_vec;
 
     string str() const;
 };

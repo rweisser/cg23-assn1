@@ -2,16 +2,13 @@
 
 // Global data
  
-#include "Globals.hpp"
-#include "Screen.hpp"
-
-struct Screen;
-
 /*
  * A struct to hold global data.  There will be one instance of this
  * created in Trace.cpp.
  * struct Globals
  * {
+ *     static const double PI;
+ *
  *     Vec3 background;  // bg color
  *     Vec3 eyep;
  *     Vec3 lookp;
@@ -20,12 +17,17 @@ struct Screen;
  *     Vec2 screen_size;
  *     Screen look_screen;
  *     vector<Sphere> sphere_vec;
- * 
- *     string str();
+ *
+ *     string str() const;
  * };
- * 
+ *
  * ostream& operator<<(ostream& os, const G& g);
  */
+
+#include "Globals.hpp"
+#include "Screen.hpp"
+
+struct Screen;
 
 const double Globals::PI = 3.141592653589793;
 
@@ -37,15 +39,14 @@ string Globals::str() const
     oss << "lookp: "       << lookp       << endl;
     oss << "up: "          << up          << endl;
     oss << "fov: "         << fov         << endl;
-    oss << "fov: "         << fov         << endl;
     oss << "look_screen: " << look_screen << endl;
     
     int i = 1;
-    oss << "Spheres:" << endl;
-    for (vector<Sphere>::const_iterator s_iter = sphere_vec.cbegin();
-         s_iter != sphere_vec.cend();
-         s_iter++, i++)
-        oss << i << ": " << *s_iter << endl;
+    oss << "Objects:" << endl;
+    for   (vector<Object *>::const_iterator o_iter = object_vec.cbegin();
+           o_iter != object_vec.cend();
+           o_iter++, i++)
+        oss << i << ": " << **o_iter << endl;
 
     return oss.str();
 }

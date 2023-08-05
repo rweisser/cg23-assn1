@@ -5,7 +5,7 @@
 // ===========================================================================
 
 #include "Globals.hpp"
-#include "Vec3.hpp"
+#include <Vec3.hpp>
 
 // This struct is used only for the look screen.
 // It contains three normalized vectors for the coordinate system
@@ -16,7 +16,7 @@ struct Screen
 {
     Screen();
     void init(const Globals& g);
-    Vec3 pixel_center(Vec3& eyep, double d, int x, int y) const;
+    Vec3 pixel_center(const Vec3& eyep, double d, int x, int y) const;
     string str() const;
 
     Vec3 u;  // Unit vector pointing up from lp.

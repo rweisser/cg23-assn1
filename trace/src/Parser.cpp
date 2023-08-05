@@ -96,6 +96,8 @@ void Parser::parse_sphere()
     double radius, x, y, z;
     ray_file >> surface_name >> radius >> x >> y >> z;
     Vec3 color = surface_map[surface_name].color;
-    Sphere s(radius, Vec3(x, y, z), color);
-    g.sphere_vec.push_back(s);
+    Sphere* sp = new Sphere(radius, Vec3(x, y, z), color);
+    // g.sphere_vec.push_back(s); // XXX delete this line
+    // g.object_vec has the responsibility to delete s.
+    g.object_vec.push_back(sp);
 }
