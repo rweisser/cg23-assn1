@@ -2,10 +2,15 @@
 
 // Ray.hpp
 
+#include <Vec3.hpp>
+
 struct Ray
 {
-    double start;    // start of ray
-    double dir;      // direction or ray
+    Vec3 start;    // start of ray
+    Vec3 dir;      // direction or ray
 
-    Ray(double start, double dir) : start(start), dir(dir) {}
+    Ray(Vec3 start, Vec3 dir);
+    string str() const;
 };
+
+ostream& operator<<(ostream& os, const Ray& r);
