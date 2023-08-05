@@ -6,4 +6,4 @@ if %errorlevel% neq 0 (
     echo Trace failed
     goto :eof
 )
-trace\build\trace.ppm
+show
