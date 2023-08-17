@@ -54,10 +54,10 @@ int main(int argc, char **argv)
 	//return 1; // XXX
 
 	// open ppm output file in trace directory
-	string ppmname = std::string(PROJECT_BUILD_DIR) + "trace.ppm";
-	ppmfile.open(ppmname, std::ios::out | std::ios::binary);
+	string ppmname = string(PROJECT_BUILD_DIR) + "trace.ppm";
+	ppmfile.open(ppmname, ios::out | ios::binary);
 	if (ppmfile.fail()) {
-		std::cerr << "Error opening " << ppmname << '\n';
+		cerr << "Error opening " << ppmname << '\n';
 		return 1;
 	}
 	write_ppm_file_header();

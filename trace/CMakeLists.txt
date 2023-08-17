@@ -14,8 +14,9 @@ file(GLOB INLINES  "src/*.inl")
 add_executable(${TARGET} ${SOURCES} ${INCLUDES} ${INLINES})
 
 # set up config.h to find directories
-set(PROJECT_BASE_DIR  "${PROJECT_SOURCE_DIR}")
-set(PROJECT_DATA_DIR  "${PROJECT_BASE_DIR}/data")
-set(PROJECT_BUILD_DIR "${PROJECT_BINARY_DIR}")
+set(PROJECT_BASE_DIR   "${PROJECT_SOURCE_DIR}")
+set(PROJECT_DATA_DIR   "${PROJECT_BASE_DIR}/data")
+set(PROJECT_BUILD_DIR  "${PROJECT_BINARY_DIR}")
+set(PROJECT_OUTPUT_DIR "${PROJECT_BASE_DIR}/output")
 configure_file(src/Config.h.in Config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

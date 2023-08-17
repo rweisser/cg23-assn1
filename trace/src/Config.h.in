@@ -1,6 +1,7 @@
 // Turn CMake options into #defines for use in code
 #pragma once
 
-#cmakedefine PROJECT_BASE_DIR  "@PROJECT_BASE_DIR@/"
-#cmakedefine PROJECT_DATA_DIR  "@PROJECT_DATA_DIR@/"
-#cmakedefine PROJECT_BUILD_DIR "@PROJECT_BUILD_DIR@/"
+#cmakedefine PROJECT_BASE_DIR   "@PROJECT_BASE_DIR@/"
+#cmakedefine PROJECT_DATA_DIR   "@PROJECT_DATA_DIR@/"
+#cmakedefine PROJECT_BUILD_DIR  "@PROJECT_BUILD_DIR@/"
+#cmakedefine PROJECT_OUTPUT_DIR "@PROJECT_OUTPUT_DIR@/"
