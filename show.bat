@@ -5,4 +5,4 @@ if %1 == "" (
     echo usage: show filename
     goto :EOF
 )
-trace\output\trace.ppm %1
+trace\output\%1
