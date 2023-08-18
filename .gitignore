@@ -10,4 +10,5 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Bb]uild/
+trace/output/
 .vs/
