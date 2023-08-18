@@ -47,12 +47,6 @@ int main(int argc, char **argv)
 	parser->parse_file(file_name);
 	delete parser;
 
-	//Tests tests(g); // XXX
-	//tests.test_parse(); // XXX
-	//cout << "XXX =======================================================" << endl;
-	//cout << "XXX g.object_vec.size() = " << g.object_vec.size() << endl;
-	//return 1; // XXX
-
 	// open ppm output file in trace directory
 	string ppmname = string(PROJECT_BUILD_DIR) + "trace.ppm";
 	ppmfile.open(ppmname, ios::out | ios::binary);
