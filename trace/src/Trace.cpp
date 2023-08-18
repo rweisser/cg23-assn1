@@ -3,6 +3,7 @@
 // ===========================================================================
 
 #include <chrono>
+#include <filesystem>
 
 #include "Color.hpp"
 #include "Config.h"
@@ -28,11 +29,11 @@ Globals g; // global data
 
 static ofstream ppmfile;
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 	// platform-independent timing
 	auto startTime = std::chrono::high_resolution_clock::now();
-	
+
 	if (argc != 2) {
 		cout << "usage: " << usage << endl;
 		exit(1);
@@ -47,10 +48,13 @@ int main(int argc, char **argv)
 	parser->parse_file(file_name);
 	delete parser;
 
-	// open ppm output file in trace directory
-	string ppmname = string(PROJECT_BUILD_DIR) + "trace.ppm";
+	// open ppm output file in trace\build directory
+	// string ppmname = string(PROJECT_BUILD_DIR) + "trace.ppm";
+	filesystem::path p{ file_name_arg };
+	string file_name_stem = p.stem().string();
+	string ppmname = string(PROJECT_BUILD_DIR) + file_name_stem + ".ppm";
 	ppmfile.open(ppmname, ios::out | ios::binary);
-	if (ppmfile.fail()) {
+		if (ppmfile.fail()) {
 		cerr << "Error opening " << ppmname << '\n';
 		return 1;
 	}
@@ -71,6 +75,23 @@ int main(int argc, char **argv)
     auto endTime = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapsed = endTime - startTime;
     std::cout << elapsed.count() << " seconds\n";
+
+	// Copy output file from build dir to output dir.
+	string out_file_name = file_name_stem + ".ppm";
+	string out_path = string(PROJECT_OUTPUT_DIR) + out_file_name;
+	filesystem::path from{ ppmname };
+	filesystem::path to{ out_path };
+	filesystem::copy_options overwrite
+		= filesystem::copy_options::overwrite_existing;
+	error_code e;
+	bool rc = filesystem::copy_file(from, to, overwrite, e);
+	if (!rc) {
+		cerr << "Trace.cpp: output file copy failed." << endl;
+		cerr << "Error " << e.value() << ": " << e.message() << endl;
+		return 1;
+	}
+	cout << out_file_name << " copied to trace\\output directory" << endl;
+
     return 0;
 }
 
